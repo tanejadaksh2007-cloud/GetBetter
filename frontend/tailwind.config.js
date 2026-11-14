@@ -9,22 +9,20 @@ export default {
       colors: {
         valDark: '#0F1923',
         valCard: '#1B2733',
-        valCardHover: '#233242',
+        valCardHover: '#223242',
         valAccent: '#FF4655',
         valAccentDark: '#E03645',
+        valText: '#ECE8E1',
         valMuted: '#8B97A3',
         valBorder: '#27384A',
-        valBorderSubtle: '#1F2D3C',
+        valBorderSubtle: '#1C2936',
       },
       fontFamily: {
         rajdhani: ['Rajdhani', 'sans-serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
-      borderRadius: {
-        card: '12px',
-      },
       transitionDuration: {
-        DEFAULT: '180ms',
+        DEFAULT: '150ms',
       }
     },
   },
