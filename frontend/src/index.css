@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    /* Base HEX color tokens */
     --color-bg: #0A0A0B;
     --color-surface: #141416;
     --color-surface-hover: #1D1D21;
@@ -15,6 +16,19 @@
     --color-yellow-hover: #FFE071;
     --color-text: #F2EFE9;
     --color-muted: #9A9AA2;
+
+    /* RGB channels for Tailwind opacity modifiers (e.g. bg-red/15, border-red/40) */
+    --color-bg-rgb: 10, 10, 11;
+    --color-surface-rgb: 20, 20, 22;
+    --color-surface-hover-rgb: 29, 29, 33;
+    --color-border-rgb: 42, 42, 46;
+    --color-border-subtle-rgb: 32, 32, 36;
+    --color-red-rgb: 255, 70, 85;
+    --color-red-hover-rgb: 255, 94, 108;
+    --color-yellow-rgb: 255, 210, 63;
+    --color-yellow-hover-rgb: 255, 224, 113;
+    --color-text-rgb: 242, 239, 233;
+    --color-muted-rgb: 154, 154, 162;
   }
 
   body {

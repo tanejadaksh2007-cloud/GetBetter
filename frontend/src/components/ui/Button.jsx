@@ -18,7 +18,7 @@ export default function Button({
   // Secondary: yellow outline, text on hover or black on yellow
   const variants = {
     primary:
-      'bg-red hover:bg-red-hover text-white border-b-2 border-red-900 shadow-md shadow-red/25 hover:shadow-red/40',
+      'bg-red hover:bg-red-hover text-white border-b-2 border-black/40 shadow-md shadow-red/25 hover:shadow-red/40',
     secondary:
       'bg-transparent hover:bg-yellow text-yellow hover:text-black border border-yellow transition-colors font-bold shadow-sm',
     outline:
