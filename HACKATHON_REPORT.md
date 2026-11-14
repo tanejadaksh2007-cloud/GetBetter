@@ -15,7 +15,7 @@ Simultaneously, the rapidly expanding amateur ecosystem—spanning collegiate le
 1. **Lack of tactical leadership:** Young rosters rely excessively on raw mechanical aim, falling apart during coordinated retakes and defensive holds.
 2. **High roster churn:** Teams consistently cycle through missing roles (such as dedicated Controllers or in-game leaders) without structured matching or coaching oversight.
 
-Currently, no dedicated platform channels the strategic knowledge of aging tactical competitors directly into organized amateur team growth.
+Currently, we found no dedicated platform that channels the strategic knowledge of aging tactical competitors directly into organized amateur team growth.
 
 ---
 
@@ -27,7 +27,7 @@ Currently, no dedicated platform channels the strategic knowledge of aging tacti
 
 ### Secondary Users: Collegiate and Semi-Pro Team Captains / Managers
 * Collegiate teams competing in structured circuits that lack a full-time university-funded coaching staff.
-* Semi-pro / Premier teams seeking to solve specific roster holes (e.g., missing a smoke anchor or shot-caller) and convert disorganized play into structured tournament runs.
+* Semi-pro teams seeking to solve specific roster holes (e.g., missing a smoke anchor or shot-caller) and convert disorganized play into structured tournament runs.
 
 ### Tertiary Users: Developing Free Agents
 * Ranked players can be discovered by teams through opt-in profiles built on team roles, not solo-queue rank.
@@ -131,7 +131,7 @@ sequenceDiagram
 ### Riot Developer Policy Compliance
 * **No Opponent Scouting:** In compliance with Riot’s API policies prohibiting unauthorized competitive scouting or exposing non-public enemy tendencies, *Veteran* does **not** feature any opponent scouting tools.
 * **Opt-In Privacy Guardrails:** Players and teams only see their own opted-in scrim and tournament logs. No opponent statistics or non-consenting player profiles are indexed.
-* **Explicit Labeling:** All endpoints and UI components are explicitly labeled with:
+* **Explicit Labeling:** Pages that show match or coach data are labeled with:
   > *"PLACEHOLDER DATA - not from Riot API. Real Riot Sign On requires production API approval."*
 * **No API Keys in Code:** No API keys or credentials are used in the code. [CONFIRM AFTER SEARCHING THE REPO]
 
@@ -147,8 +147,9 @@ sequenceDiagram
 | **Team Builder** | Role-Overlap Matching | **[CONFIRM: Working / Partial / Mocked]** | Algorithmic scoring engine (`POST /api/match`) matching players and coaches against missing roles. |
 | **VOD Review** | Timestamped Video Tool | **[CONFIRM: Working / Partial / Mocked]** | Embedded responsive video player with real-time note creation and timestamp filtering. |
 | **Scrim Hub** | Scrim Scheduler & Log | **[CONFIRM: Working / Partial / Mocked]** | Form to schedule scrims, choose map vetoes, and track status (`scheduled`, `completed`, `cancelled`). |
-| **Analytics** | Team Dashboard | **[CONFIRM: Working / Partial / Mocked]** | Real-time calculations of map win rates, attack vs. defense splits, and last-5 match recaps using Recharts. |
+| **Analytics** | Team Dashboard | **[CONFIRM: Working / Partial / Mocked]** | Map win rates ... calculated from seeded match data, attack vs. defense splits, and last-5 match recaps using Recharts. |
 | **Match Engine** | Match Ingestion | **Mocked / Seeded** | 8 complete matches structured in `VAL-MATCH-V1` schema read via `matchService.js`. |
+| **Payments** | Subscriptions & booking payments | **Not built (planned)** | Revenue model is a plan only; no payment processing in the demo. |
 
 ---
 
@@ -188,7 +189,7 @@ graph TD
 4. **Cold-Start Liquidity Problem:** A two-sided marketplace requires both coaches and teams to be active simultaneously.
    * *Mitigation:* Seed the platform initially by partnering directly with 4–6 collegiate esports directors and veteran Tier-2 players (*planned pilot*).
 5. **Limited Supply of Ex-Pros:** The total pool of retired semi-pro players in their mid-20s is finite compared to the broader player base.
-6. **Low Barrier to Feature Duplication:** Established stats platforms (e.g., Tracker Network) could theoretically add team scheduling modules. Our moat rests in coach track records and role-overlap algorithms.
+6. **Low Barrier to Feature Duplication:** Established stats platforms (e.g., Tracker Network (unverified)) could theoretically add team scheduling modules. Our moat rests in coach track records and role-overlap algorithms.
 
 ---
 
