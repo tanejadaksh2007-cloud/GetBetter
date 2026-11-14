@@ -4,7 +4,7 @@
 ---
 
 ## 1. Problem Statement
-First-person tactical shooters like Riot Games’ *VALORANT* require microsecond reaction times, sharp mechanical micro-aim, and split-second flicking. In esports, raw mechanical reflexes typically peak in late adolescence and begin a measurable decline in a player's early to mid-20s (*Thompson et al., 2014, PLOS ONE*). As a consequence, thousands of experienced Tier-2, Tier-3, and collegiate competitors face an abrupt "career cliff" where they can no longer out-aim 17-year-old prodigies. 
+First-person tactical shooters like Riot Games’ *VALORANT* require microsecond reaction times, sharp mechanical micro-aim, and split-second flicking. Research on StarCraft 2 players found that reaction speed begins to decline in the mid-20s (Thompson et al., 2014). We use this as a proxy for tactical shooters like VALORANT; it is not a VALORANT-specific finding. As a consequence, thousands of experienced Tier-2, Tier-3, and collegiate competitors face an abrupt "career cliff" where they can no longer out-aim 17-year-old prodigies. 
 
 However, these veteran players possess deep tactical capital:
 * Sophisticated understanding of map macro and economy rotations.
@@ -30,7 +30,7 @@ Currently, no dedicated platform channels the strategic knowledge of aging tacti
 * Semi-pro / Premier teams seeking to solve specific roster holes (e.g., missing a smoke anchor or shot-caller) and convert disorganized play into structured tournament runs.
 
 ### Tertiary Users: Developing Free Agents
-* Ranked players wanting to be scouted by real teams based on team-first utility roles rather than solo-queue ranked Leaderboards.
+* Ranked players can be discovered by teams through opt-in profiles built on team roles, not solo-queue rank.
 
 ---
 
@@ -51,17 +51,17 @@ Currently, no dedicated platform channels the strategic knowledge of aging tacti
 
 ```mermaid
 flowchart LR
-    A["Verified Coach Profiles"] --> B["Team Builder & Role Matcher"]
+    A["Coach Profiles with Team Results"] --> B["Team Builder & Role Matcher"]
     B --> C["Scrim Scheduler"]
     C --> D["VOD Review & Timestamps"]
     D --> E["Team Progress Dashboard"]
     E -. "Iterative Improvement" .-> A
 ```
 
-1. **Coach Profiles with Verified Progression:** Coaches are showcased not by solo KDA, but by verified team-level outcomes (e.g., *"Rutgers Esports improved from 42% to 65% win rate"*).
+1. **Coach Profiles with Team Results:** Coaches are showcased not by solo KDA, but by team-level outcomes. Example (fictional): Team Alpha improved from 42% to 65% win rate. All coach results in the demo are seeded placeholder data.
 2. **Team Builder (Role-Based Matcher):** Teams declare missing compositions (e.g., *Controller*, *IGL*). An algorithmic scoring engine ranks free agents and veteran coaches based on utility overlap and agent mastery.
 3. **Integrated VOD Review Tool:** Coaches paste YouTube/Twitch scrim links and insert timestamped tactical notes that jump directly to key execution breakdowns.
-4. **Scrim Scheduler:** Direct booking interface with opponent verification, date selection, and map veto assignments.
+4. **Scrim Scheduler:** Direct booking interface with date selection, and map veto assignments.
 5. **Team Progress Dashboard:** Interactive analytics powered by Recharts tracking win rates by map, attack vs. defense half splits, and recent match histories.
 
 ---
@@ -130,7 +130,7 @@ sequenceDiagram
 * **Opt-In Privacy Guardrails:** Players and teams only see their own opted-in scrim and tournament logs. No opponent statistics or non-consenting player profiles are indexed.
 * **Explicit Labeling:** All endpoints and UI components are explicitly labeled with:
   > *"PLACEHOLDER DATA - not from Riot API. Real Riot Sign On requires production API approval."*
-* **No API Keys in Code:** Zero hardcoded credentials or mock tokens exist in the repository.
+* **No API Keys in Code:** No API keys or credentials are used in the code. [CONFIRM AFTER SEARCHING THE REPO]
 
 ---
 
@@ -139,12 +139,12 @@ sequenceDiagram
 | Feature Area | Component | Implementation Status | Notes |
 | :--- | :--- | :--- | :--- |
 | **Authentication** | Sign in with Riot | **Mocked** | Simulated RSO with mandatory privacy opt-in checkbox and pre-seeded accounts. |
-| **Coach Directory** | Specialty & Agent Filtering | **Fully Built** | Live backend query filtering coaches by specialty (IGL, controller, anti-strat) and agent pool. |
-| **Coach Profiles** | Bio, Rates & Progression | **Fully Built** | Displays before/after team win-rate case studies and working booking modal. |
-| **Team Builder** | Role-Overlap Matching | **Fully Built** | Algorithmic scoring engine (`POST /api/match`) matching players and coaches against missing roles. |
-| **VOD Review** | Timestamped Video Tool | **Fully Built** | Embedded responsive video player with real-time note creation and timestamp filtering. |
-| **Scrim Hub** | Scrim Scheduler & Log | **Fully Built** | Form to schedule scrims, choose map vetoes, and track status (`scheduled`, `completed`, `cancelled`). |
-| **Analytics** | Team Dashboard | **Fully Built** | Real-time calculations of map win rates, attack vs. defense splits, and last-5 match recaps using Recharts. |
+| **Coach Directory** | Specialty & Agent Filtering | **[CONFIRM: Working / Partial / Mocked]** | Live backend query filtering coaches by specialty (IGL, controller, anti-strat) and agent pool. |
+| **Coach Profiles** | Bio, Rates & Progression | **[CONFIRM: Working / Partial / Mocked]** | Displays before/after team win-rate case studies and working booking modal. |
+| **Team Builder** | Role-Overlap Matching | **[CONFIRM: Working / Partial / Mocked]** | Algorithmic scoring engine (`POST /api/match`) matching players and coaches against missing roles. |
+| **VOD Review** | Timestamped Video Tool | **[CONFIRM: Working / Partial / Mocked]** | Embedded responsive video player with real-time note creation and timestamp filtering. |
+| **Scrim Hub** | Scrim Scheduler & Log | **[CONFIRM: Working / Partial / Mocked]** | Form to schedule scrims, choose map vetoes, and track status (`scheduled`, `completed`, `cancelled`). |
+| **Analytics** | Team Dashboard | **[CONFIRM: Working / Partial / Mocked]** | Real-time calculations of map win rates, attack vs. defense splits, and last-5 match recaps using Recharts. |
 | **Match Engine** | Match Ingestion | **Mocked / Seeded** | 8 complete matches structured in `VAL-MATCH-V1` schema read via `matchService.js`. |
 
 ---
@@ -168,7 +168,7 @@ graph TD
 
 1. **Team Subscription (SaaS):**
    * *$29/month (assumption)* for collegiate clubs; *$49/month (assumption)* for semi-pro organizations.
-   * Unlocks automated team analytics, unlimited VOD timestamp storage, and roster management.
+   * Unlocks VOD storage and roster management.
 2. **Coach Booking Commission (Marketplace Fee):**
    * *12% commission (assumption)* deducted from hourly coaching sessions booked and paid through the platform.
 3. **Free Tier for Players & Free Agents:**
@@ -179,17 +179,19 @@ graph TD
 ## 10. Risks and Limitations
 
 1. **Riot Production API Approval Gate:** Riot Games maintains rigorous evaluation standards for production API keys. Without approval, the platform cannot ingest official competitive match IDs and must rely on custom scrim lobbies or manual match exports.
-2. **Platform Leakage to Discord:** Once a team establishes rapport with a coach, they may attempt to take future payments and sessions off-platform to Discord to avoid platform fees. 
+2. **Riot Policy on Paid Analytics:** Riot requires that content charged to players be transformative. Our paid tier covers team tools (VOD storage, scheduling, roster management). Match-based analytics would be confirmed with Riot before being charged for.
+3. **Platform Leakage to Discord:** Once a team establishes rapport with a coach, they may attempt to take future payments and sessions off-platform to Discord to avoid platform fees. 
    * *Mitigation:* The platform must provide sticky software value (VOD timestamp history, shared team playbooks, automated round analytics) that cannot be replicated in a Discord call.
-3. **Cold-Start Liquidity Problem:** A two-sided marketplace requires both coaches and teams to be active simultaneously.
+4. **Cold-Start Liquidity Problem:** A two-sided marketplace requires both coaches and teams to be active simultaneously.
    * *Mitigation:* Seed the platform initially by partnering directly with 4–6 collegiate esports directors and veteran Tier-2 players (*unverified operational pilot*).
-4. **Limited Supply of Ex-Pros:** The total pool of retired semi-pro players in their mid-20s is finite compared to the broader player base.
-5. **Low Barrier to Feature Duplication:** Established stats platforms (e.g., Tracker Network) could theoretically add team scheduling modules. Our moat rests in verified coach track records and role-overlap algorithms.
+5. **Limited Supply of Ex-Pros:** The total pool of retired semi-pro players in their mid-20s is finite compared to the broader player base.
+6. **Low Barrier to Feature Duplication:** Established stats platforms (e.g., Tracker Network) could theoretically add team scheduling modules. Our moat rests in verified coach track records and role-overlap algorithms.
 
 ---
 
 ## 11. Future Scope
 
+* **Coach and result verification (e.g., via Riot match data after API approval).**
 * **Automatic VOD Timestamping via Computer Vision / OCR:** Detect killfeed events, spike plants, and round losses directly from video frames to automatically generate review timestamps.
 * **Custom Tactical Playbook Builder:** Interactive 2D map board where coaches can diagram smokes, flashes, and default protocols for team reference.
 * **Discord Bot Integration:** Automated webhook notifications pushed to team Discord servers for upcoming scrims and newly assigned coach VOD reviews.
@@ -204,8 +206,8 @@ The narrative that esports competitors become obsolete at age 24 is an inefficie
 
 ## 13. Sources & References
 
-1. **Thompson, J. J., Blair, M. R., & Henrey, A. J. (2014).** *Over the Hill at 24: Persistent Cognitive-Motor Decline in Young Adults.* PLOS ONE, 9(4), e94230. [https://doi.org/10.1371/journal.pone.0094230](https://doi.org/10.1371/journal.pone.0094230)
-2. **Riot Games Developer Portal & Policies:** *Riot Games Developer Terms and API Guidelines.* [https://developer.riotgames.com/policies](https://developer.riotgames.com/policies)
+1. **Thompson, J. J., Blair, M. R., & Henrey, A. J. (2014).** [VERIFY ON PLOS ONE]. [https://doi.org/[VERIFY ON PLOS ONE]](https://doi.org/[VERIFY ON PLOS ONE])
+2. **Riot Games, VALORANT Developer API Policy.** [https://developer.riotgames.com/docs/valorant](https://developer.riotgames.com/docs/valorant)
 3. **WeCoach Platform:** *Esports Coaching and VOD Reviews.* [https://wecoach.gg](https://wecoach.gg)
 4. **ReadyUp Esports:** *ReadyUp esports management platform raises $2M.* GamesIndustry.biz. [https://www.gamesindustry.biz/readyup-esports-management-platform-raises-usd2m](https://www.gamesindustry.biz/readyup-esports-management-platform-raises-usd2m)
 5. **Gamer Sensei / Corsair:** *CORSAIR Acquires Esports Coaching Platform Gamer Sensei.* [https://www.corsair.com/us/en/explorer/gamer-sensei/](https://www.corsair.com/us/en/explorer/gamer-sensei/)
