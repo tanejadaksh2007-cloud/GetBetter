@@ -4,14 +4,14 @@
 ---
 
 ## 1. Problem Statement
-First-person tactical shooters like Riot Games’ *VALORANT* require microsecond reaction times, sharp mechanical micro-aim, and split-second flicking. Research on StarCraft 2 players found that reaction speed begins to decline in the mid-20s (Thompson et al., 2014). We use this as a proxy for tactical shooters like VALORANT; it is not a VALORANT-specific finding. As a consequence, thousands of experienced Tier-2, Tier-3, and collegiate competitors face an abrupt "career cliff" where they can no longer out-aim 17-year-old prodigies. 
+First-person tactical shooters like Riot Games’ *VALORANT* require millisecond reaction times, sharp mechanical micro-aim, and split-second flicking. Research on StarCraft 2 players found that reaction speed begins to decline in the mid-20s (Thompson et al., 2014). We use this as a proxy for tactical shooters like VALORANT; it is not a VALORANT-specific finding. As a consequence, thousands of experienced Tier-2, Tier-3, and collegiate competitors (unverified) face an abrupt "career cliff" where they can no longer out-aim 17-year-old prodigies. 
 
 However, these veteran players possess deep tactical capital:
 * Sophisticated understanding of map macro and economy rotations.
 * Mid-round shot-calling and anti-strat discipline.
 * Smoke timing, utility combo synchronization, and site retake protocols.
 
-Simultaneously, the rapidly expanding amateur ecosystem—spanning collegiate leagues (e.g., NACE, Red Bull Campus Clutch) and semi-pro circuits (VALORANT Challengers, Premier Contender)—struggles with two chronic bottlenecks:
+Simultaneously, the rapidly expanding amateur ecosystem—spanning collegiate leagues (e.g., NACE (unverified), Red Bull Campus Clutch (unverified)) and semi-pro circuits (VALORANT Challengers (unverified), Premier Contender (unverified))—struggles with two chronic bottlenecks:
 1. **Lack of tactical leadership:** Young rosters rely excessively on raw mechanical aim, falling apart during coordinated retakes and defensive holds.
 2. **High roster churn:** Teams consistently cycle through missing roles (such as dedicated Controllers or in-game leaders) without structured matching or coaching oversight.
 
@@ -39,10 +39,10 @@ Currently, no dedicated platform channels the strategic knowledge of aging tacti
 | Platform | Core Capabilities | Gaps for Our Concept | Source URL |
 | :--- | :--- | :--- | :--- |
 | **WeCoach** | Connects individual players to verified pros for 1-on-1 gameplay lessons and VOD reviews across multiple titles. | Focuses on individual consumer rank-up lessons ("play with a pro"); lacks roster management, role-based team builder, and scrim analytics. | [wecoach.gg](https://wecoach.gg) |
-| **ReadyUp** | Started as an amateur team management and scheduling hub (2017); subsequently pivoted towards fan-discovery SaaS and creator event scheduling. | Does not offer specialized tactical role matching for VALORANT, nor does it provide integrated timestamped VOD feedback or round analytics. *(Status of legacy team management tool: unverified/inactive).* | [gamesindustry.biz](https://www.gamesindustry.biz/readyup-esports-management-platform-raises-usd2m) |
-| **Gamer Sensei** | Pioneer coaching marketplace offering skills benchmark assessments and curriculum-based training; acquired by Corsair in 2020. | Acquired and largely sunsetted as an independent marketplace *(unverified active storefront; directs to Corsair ecosystem)*. Focused primarily on individual hourly lessons rather than roster construction or team scrim telemetry. | [corsair.com](https://www.corsair.com/us/en/explorer/gamer-sensei/) |
+| **ReadyUp** | Started as an amateur team management and scheduling hub (2017); subsequently pivoted towards fan-discovery SaaS and creator event scheduling. (unverified) | Does not offer specialized tactical role matching for VALORANT, nor does it provide integrated timestamped VOD feedback or round analytics. *(Status of legacy team management tool: unverified/inactive).* | [gamesindustry.biz](https://www.gamesindustry.biz/readyup-esports-management-platform-raises-usd2m) |
+| **Gamer Sensei** | Pioneer coaching marketplace offering skills benchmark assessments and curriculum-based training; acquired by Corsair in 2020. | Current status unclear (unverified) *(unverified active storefront; directs to Corsair ecosystem)*. Focused primarily on individual hourly lessons rather than roster construction or team scrim telemetry. | [corsair.com](https://www.corsair.com/us/en/explorer/gamer-sensei/) |
 
-**The Gap:** Existing platforms treat esports coaching as an individual consumer transaction (a solo-queue player paying $20 to get out of Silver). None of them bridge team-level tactical mechanics, role-overlap team building, and persistent team progression analytics in a unified platform.
+**The Gap:** Existing platforms treat esports coaching as an individual consumer transaction (a solo-queue player paying $20 to get out of Silver). None we found bridge team-level tactical mechanics, role-overlap team building, and persistent team progression analytics in a unified platform.
 
 ---
 
@@ -61,8 +61,10 @@ flowchart LR
 1. **Coach Profiles with Team Results:** Coaches are showcased not by solo KDA, but by team-level outcomes. Example (fictional): Team Alpha improved from 42% to 65% win rate. All coach results in the demo are seeded placeholder data.
 2. **Team Builder (Role-Based Matcher):** Teams declare missing compositions (e.g., *Controller*, *IGL*). An algorithmic scoring engine ranks free agents and veteran coaches based on utility overlap and agent mastery.
 3. **Integrated VOD Review Tool:** Coaches paste YouTube/Twitch scrim links and insert timestamped tactical notes that jump directly to key execution breakdowns.
-4. **Scrim Scheduler:** Direct booking interface with date selection, and map veto assignments.
+4. **Scrim Scheduler:** Direct booking interface with date selection and map vetoes.
 5. **Team Progress Dashboard:** Interactive analytics powered by Recharts tracking win rates by map, attack vs. defense half splits, and recent match histories.
+
+Game-specific parts (roles, agents, match format) are designed to sit behind a game adapter; VALORANT is the demo game. [CONFIRM THIS MATCHES THE CODE]
 
 ---
 
@@ -115,6 +117,7 @@ sequenceDiagram
 * **Backend:** Node.js, Express 4 (pure ES modules), CORS middleware.
 * **Storage Engine:** Local structured JSON storage (`/backend/data/`) managed via atomic read/write helpers (`jsonStorage.js`), removing heavy external database dependencies for self-contained hackathon evaluation.
 * **Build & Dev Tooling:** Single root orchestration script (`concurrently`) enabling unified execution via `npm install && npm run dev`.
+* Game-specific parts (roles, agents, match format) are designed to sit behind a game adapter; VALORANT is the demo game. [CONFIRM THIS MATCHES THE CODE]
 
 ---
 
@@ -181,11 +184,11 @@ graph TD
 1. **Riot Production API Approval Gate:** Riot Games maintains rigorous evaluation standards for production API keys. Without approval, the platform cannot ingest official competitive match IDs and must rely on custom scrim lobbies or manual match exports.
 2. **Riot Policy on Paid Analytics:** Riot requires that content charged to players be transformative. Our paid tier covers team tools (VOD storage, scheduling, roster management). Match-based analytics would be confirmed with Riot before being charged for.
 3. **Platform Leakage to Discord:** Once a team establishes rapport with a coach, they may attempt to take future payments and sessions off-platform to Discord to avoid platform fees. 
-   * *Mitigation:* The platform must provide sticky software value (VOD timestamp history, shared team playbooks, automated round analytics) that cannot be replicated in a Discord call.
+   * *Mitigation:* The platform must provide sticky software value (VOD timestamp history, shared team playbooks) that cannot be replicated in a Discord call.
 4. **Cold-Start Liquidity Problem:** A two-sided marketplace requires both coaches and teams to be active simultaneously.
    * *Mitigation:* Seed the platform initially by partnering directly with 4–6 collegiate esports directors and veteran Tier-2 players (*unverified operational pilot*).
 5. **Limited Supply of Ex-Pros:** The total pool of retired semi-pro players in their mid-20s is finite compared to the broader player base.
-6. **Low Barrier to Feature Duplication:** Established stats platforms (e.g., Tracker Network) could theoretically add team scheduling modules. Our moat rests in verified coach track records and role-overlap algorithms.
+6. **Low Barrier to Feature Duplication:** Established stats platforms (e.g., Tracker Network) could theoretically add team scheduling modules. Our moat rests in coach track records and role-overlap algorithms.
 
 ---
 
@@ -206,7 +209,7 @@ The narrative that esports competitors become obsolete at age 24 is an inefficie
 
 ## 13. Sources & References
 
-1. **Thompson, J. J., Blair, M. R., & Henrey, A. J. (2014).** [VERIFY ON PLOS ONE]. [https://doi.org/[VERIFY ON PLOS ONE]](https://doi.org/[VERIFY ON PLOS ONE])
+1. **Thompson, J. J., Blair, M. R., & Henrey, A. J. (2014).** Over the Hill at 24: Persistent Age-Related Cognitive-Motor Decline in Reaction Times in an Ecologically Valid Video Game Task Begins in Early Adulthood. PLoS ONE, 9(4), e94215. [https://doi.org/10.1371/journal.pone.0094215](https://doi.org/10.1371/journal.pone.0094215)
 2. **Riot Games, VALORANT Developer API Policy.** [https://developer.riotgames.com/docs/valorant](https://developer.riotgames.com/docs/valorant)
 3. **WeCoach Platform:** *Esports Coaching and VOD Reviews.* [https://wecoach.gg](https://wecoach.gg)
 4. **ReadyUp Esports:** *ReadyUp esports management platform raises $2M.* GamesIndustry.biz. [https://www.gamesindustry.biz/readyup-esports-management-platform-raises-usd2m](https://www.gamesindustry.biz/readyup-esports-management-platform-raises-usd2m)
