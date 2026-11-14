@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ShieldCheck, CheckSquare, Square, Info } from 'lucide-react';
+import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
+import Badge from '../components/ui/Badge';
 
 export default function Login() {
   const { login } = useAuth();
@@ -56,67 +59,60 @@ export default function Login() {
   };
 
   return (
-    <div className="max-w-md mx-auto my-12 px-4">
-      <div className="bg-valCard border border-slate-800 rounded-xl p-8 shadow-2xl relative overflow-hidden">
+    <div className="max-w-md mx-auto my-10 sm:my-16 px-4">
+      <Card className="p-7 sm:p-8 relative overflow-hidden shadow-2xl border-valBorder">
         {/* Accent Bar */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-valRed via-rose-500 to-amber-500" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-valAccent" />
 
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-red-600/10 border border-valRed/30 rounded-2xl mx-auto flex items-center justify-center mb-3">
-            <span className="text-valRed font-black text-3xl">V</span>
+        <div className="text-center mb-6">
+          <div className="w-14 h-14 bg-valAccent/10 border border-valAccent/30 rounded-xl mx-auto flex items-center justify-center mb-3">
+            <span className="text-valAccent font-black text-2xl font-rajdhani">V</span>
           </div>
-          <h1 className="text-2xl font-black text-white tracking-wide uppercase">
-            Sign In with Riot
+          <h1 className="text-3xl font-extrabold text-white uppercase tracking-wider font-rajdhani">
+            Sign in with Riot (mockup)
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
-            Authenticate your VALORANT account identity
+          <p className="text-xs text-valMuted mt-1">
+            Authenticate a simulated account to test the platform
           </p>
         </div>
 
         {/* Mock Notice Box */}
-        <div className="bg-amber-950/40 border border-amber-600/40 rounded-lg p-3 text-xs text-amber-200 mb-6 flex gap-2.5">
-          <Info className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-          <div>
-            <strong className="block text-amber-300 mb-0.5">Mockup Authentication</strong>
-            Real Riot Sign On (RSO) requires production API keys and registered redirect URIs. Choose a pre-seeded account below to simulate login.
+        <div className="bg-[#1C1417] border border-valAccent/30 rounded-lg p-3 text-xs text-rose-200 mb-6 flex gap-2.5 items-start">
+          <Info className="w-4 h-4 text-valAccent shrink-0 mt-0.5" />
+          <div className="leading-relaxed">
+            Mockup - real Riot Sign On requires production API approval.
           </div>
         </div>
 
-        <form onSubmit={handleContinue} className="space-y-6">
+        <form onSubmit={handleContinue} className="space-y-5">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-              Select Simulated Account
+            <label className="block text-xs font-bold text-valMuted uppercase tracking-wider mb-2">
+              Select Profile
             </label>
             <div className="space-y-2">
               {mockProfiles.map((p) => (
-                <label
+                <div
                   key={p.puuid}
                   onClick={() => setSelectedProfile(p.puuid)}
-                  className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${
+                  className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all duration-180 ${
                     selectedProfile === p.puuid
-                      ? 'bg-slate-800 border-valRed text-white shadow-md'
-                      : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700'
+                      ? 'bg-valCardHover border-valAccent text-white shadow-sm'
+                      : 'bg-[#121C26] border-valBorder text-valMuted hover:border-slate-600 hover:text-slate-200'
                   }`}
                 >
                   <div>
                     <span className="font-bold text-sm text-white">
                       {p.gameName}
                     </span>{' '}
-                    <span className="text-xs text-slate-400">#{p.tagLine}</span>
-                    <div className="text-[11px] text-slate-400 capitalize">
+                    <span className="text-xs text-valMuted">#{p.tagLine}</span>
+                    <div className="text-[11px] text-valMuted capitalize mt-0.5">
                       {p.type} • {p.role}
                     </div>
                   </div>
-                  <span
-                    className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded ${
-                      p.type === 'coach'
-                        ? 'bg-rose-950 text-rose-300 border border-rose-800'
-                        : 'bg-teal-950 text-teal-300 border border-teal-800'
-                    }`}
-                  >
+                  <Badge variant={p.type === 'coach' ? 'accent' : 'teal'} size="sm">
                     {p.type}
-                  </span>
-                </label>
+                  </Badge>
+                </div>
               ))}
             </div>
           </div>
@@ -124,33 +120,29 @@ export default function Login() {
           {/* Opt-in Policy Checkbox */}
           <div
             onClick={() => setOptIn(!optIn)}
-            className="flex items-start gap-3 p-3 rounded-lg bg-slate-900/40 border border-slate-800 cursor-pointer select-none"
+            className="flex items-start gap-3 p-3.5 rounded-lg bg-[#121C26] border border-valBorder cursor-pointer select-none transition-colors hover:border-slate-600"
           >
             <button
               type="button"
-              className="text-valRed shrink-0 mt-0.5 focus:outline-none"
+              className="text-valAccent shrink-0 mt-0.5 focus:outline-none"
             >
               {optIn ? (
-                <CheckSquare className="w-5 h-5 text-valRed" />
+                <CheckSquare className="w-5 h-5 text-valAccent" />
               ) : (
-                <Square className="w-5 h-5 text-slate-500" />
+                <Square className="w-5 h-5 text-valMuted" />
               )}
             </button>
-            <div className="text-xs text-slate-300">
-              <span className="font-semibold text-white">Data Privacy Opt-In:</span>{' '}
-              I allow this app to display my Valorant match data. Opponents and non-opted players remain private.
+            <div className="text-xs text-slate-300 leading-relaxed">
+              <span className="font-bold text-white">Data consent:</span>{' '}
+              I allow this app to display my Valorant match data.
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-valRed hover:bg-valRedDark text-white font-bold py-3 px-4 rounded-lg shadow-lg flex items-center justify-center gap-2 transition-all transform active:scale-95"
-          >
-            <ShieldCheck className="w-5 h-5" />
-            Continue to Veteran
-          </button>
+          <Button type="submit" variant="primary" size="lg" className="w-full">
+            <ShieldCheck className="w-4 h-4" /> Continue to Veteran
+          </Button>
         </form>
-      </div>
+      </Card>
     </div>
   );
 }

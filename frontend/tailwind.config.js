@@ -7,14 +7,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        valDark: '#0f1722',
-        valCard: '#182333',
-        valCardHover: '#1f2e42',
-        valRed: '#ff4655',
-        valRedDark: '#cc3542',
-        valGold: '#ece8e1',
-        valTeal: '#00e5bf',
-        valMuted: '#8b9bb4'
+        valDark: '#0F1923',
+        valCard: '#1B2733',
+        valCardHover: '#233242',
+        valAccent: '#FF4655',
+        valAccentDark: '#E03645',
+        valMuted: '#8B97A3',
+        valBorder: '#27384A',
+        valBorderSubtle: '#1F2D3C',
+      },
+      fontFamily: {
+        rajdhani: ['Rajdhani', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      borderRadius: {
+        card: '12px',
+      },
+      transitionDuration: {
+        DEFAULT: '180ms',
       }
     },
   },

@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Plus, Clock, MapPin, CheckCircle, AlertCircle, XCircle } from 'lucide-react';
+import { Calendar, Plus, Clock, MapPin, AlertCircle } from 'lucide-react';
+import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
+import Badge from '../components/ui/Badge';
+import Input from '../components/ui/Input';
+import PageHeader from '../components/ui/PageHeader';
+import LoadingSkeleton from '../components/ui/LoadingSkeleton';
+import EmptyState from '../components/ui/EmptyState';
 
 export default function ScrimScheduler() {
   const [scrims, setScrims] = useState([]);
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // New Scrim Form State
   const [teamId, setTeamId] = useState('team-001');
-  const [opponent, setOpponent] = useState('NYU Violets');
+  const [opponent, setOpponent] = useState('Vanguard Esports');
   const [datetime, setDatetime] = useState('2026-11-21T20:00');
   const [map, setMap] = useState('Ascent');
   const [status, setStatus] = useState('scheduled');
@@ -20,29 +28,33 @@ export default function ScrimScheduler() {
   }, []);
 
   const fetchInitialData = async () => {
+    setLoading(true);
+    setError(null);
     try {
       const [scrimsRes, teamsRes] = await Promise.all([
         fetch('/api/scrims'),
         fetch('/api/teams')
       ]);
+
+      if (!scrimsRes.ok || !teamsRes.ok) throw new Error('Failed to load scrims data');
+
       const scrimsJson = await scrimsRes.json();
       const teamsJson = await teamsRes.json();
 
       setTeams(teamsJson.data || []);
       let list = scrimsJson.data || [];
 
-      // If empty, seed initial dummy scrims
       if (list.length === 0) {
         const seed1 = {
           teamId: 'team-001',
-          opponent: 'NYU Violets (Collegiate)',
+          opponent: 'Team Delta (Collegiate)',
           datetime: '2026-11-18T19:00',
           map: 'Ascent',
           status: 'scheduled'
         };
         const seed2 = {
           teamId: 'team-001',
-          opponent: 'Penn State Nittany Gaming',
+          opponent: 'Team Echo (Semi-Pro)',
           datetime: '2026-11-15T21:00',
           map: 'Haven',
           status: 'completed'
@@ -63,7 +75,8 @@ export default function ScrimScheduler() {
 
       setScrims(list);
     } catch (err) {
-      console.error('Error fetching scrim data', err);
+      console.error(err);
+      setError('Could not connect to scrim scheduling service.');
     } finally {
       setLoading(false);
     }
@@ -91,191 +104,178 @@ export default function ScrimScheduler() {
   const getStatusBadge = (st) => {
     switch (st) {
       case 'completed':
-        return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">
-            <CheckCircle className="w-3 h-3" /> Completed
-          </span>
-        );
+        return <Badge variant="teal" size="sm">Completed</Badge>;
       case 'cancelled':
-        return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-rose-950 text-rose-400 border border-rose-800">
-            <XCircle className="w-3 h-3" /> Cancelled
-          </span>
-        );
+        return <Badge variant="loss" size="sm">Cancelled</Badge>;
       default:
-        return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-800">
-            <Clock className="w-3 h-3" /> Scheduled
-          </span>
-        );
+        return <Badge variant="amber" size="sm">Scheduled</Badge>;
     }
   };
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div className="bg-valCard border border-slate-800 rounded-2xl p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight flex items-center gap-3">
-            <Calendar className="w-7 h-7 text-valRed" /> Scrim Schedule & Tactical Warmups
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
-            Book private practice lobbies against fellow collegiate and semi-pro teams with pre-agreed map vetoes.
-          </p>
-        </div>
-      </div>
+      {/* Page Header */}
+      <PageHeader
+        badge={
+          <Badge variant="accent" size="sm">
+            <Calendar className="w-3 h-3 inline mr-1" /> Practice Coordination
+          </Badge>
+        }
+        title="Scrim Schedule"
+        description="Coordinate practice lobbies, agree on map vetoes, and track team scrim history."
+      />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Form to Book Scrim */}
-        <div className="bg-valCard border border-slate-800 rounded-xl p-6 shadow-xl h-fit">
-          <h2 className="text-sm font-black text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-            <Plus className="w-4 h-4 text-valRed" /> Schedule Practice Scrim
-          </h2>
+      {error ? (
+        <Card className="text-center py-12 text-rose-300">
+          <AlertCircle className="w-8 h-8 text-valAccent mx-auto mb-2" />
+          <p className="text-sm font-semibold">{error}</p>
+        </Card>
+      ) : loading ? (
+        <LoadingSkeleton count={2} type="card" />
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Form */}
+          <Card className="h-fit space-y-4">
+            <h2 className="text-xl font-bold uppercase tracking-wide text-white font-rajdhani flex items-center gap-2">
+              <Plus className="w-5 h-5 text-valAccent" /> Schedule Scrim
+            </h2>
 
-          <form onSubmit={handleCreateScrim} className="space-y-4 text-xs">
-            <div>
-              <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">
-                Your Team
-              </label>
-              <select
-                value={teamId}
-                onChange={(e) => setTeamId(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 focus:border-valRed focus:outline-none"
-              >
-                {teams.map((t) => (
-                  <option key={t.id} value={t.id}>
-                    {t.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <form onSubmit={handleCreateScrim} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+                  Your Team
+                </label>
+                <select
+                  value={teamId}
+                  onChange={(e) => setTeamId(e.target.value)}
+                  className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+                >
+                  {teams.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div>
-              <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">
-                Opponent Team
-              </label>
-              <input
-                type="text"
-                placeholder="e.g. Rutgers Scarlet or Team Liquid Academy"
+              <Input
+                label="Opponent Team"
+                placeholder="e.g. Spartan Prime"
                 value={opponent}
                 onChange={(e) => setOpponent(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 focus:border-valRed focus:outline-none"
                 required
               />
+
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+                  Map Selection
+                </label>
+                <select
+                  value={map}
+                  onChange={(e) => setMap(e.target.value)}
+                  className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+                >
+                  {mapsList.map((m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+                  Date & Time
+                </label>
+                <input
+                  type="datetime-local"
+                  value={datetime}
+                  onChange={(e) => setDatetime(e.target.value)}
+                  className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+                  required
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+                  Status
+                </label>
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+                >
+                  <option value="scheduled">Scheduled</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+
+              <Button type="submit" variant="primary" size="md" className="w-full">
+                Confirm Scrim Slot
+              </Button>
+            </form>
+          </Card>
+
+          {/* List */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-bold uppercase tracking-wide text-white font-rajdhani">
+                Scheduled & Recent Scrims
+              </h3>
+              <Badge variant="outline" size="sm">
+                {scrims.length} matches
+              </Badge>
             </div>
 
-            <div>
-              <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">
-                Map Selection
-              </label>
-              <select
-                value={map}
-                onChange={(e) => setMap(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 focus:border-valRed focus:outline-none"
-              >
-                {mapsList.map((m) => (
-                  <option key={m} value={m}>
-                    {m}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">
-                Date & Time
-              </label>
-              <input
-                type="datetime-local"
-                value={datetime}
-                onChange={(e) => setDatetime(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 focus:border-valRed focus:outline-none"
-                required
+            {scrims.length === 0 ? (
+              <EmptyState
+                icon={Calendar}
+                title="No Scrims Scheduled"
+                description="Book your first practice lobby against a collegiate or semi-pro opponent using the form."
               />
-            </div>
+            ) : (
+              <div className="space-y-3">
+                {scrims.map((scrim) => {
+                  const teamName = teams.find((t) => t.id === scrim.teamId)?.name || 'Team';
+                  const formattedDate = new Date(scrim.datetime).toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  });
 
-            <div>
-              <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">
-                Match Status
-              </label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 focus:border-valRed focus:outline-none"
-              >
-                <option value="scheduled">Scheduled</option>
-                <option value="completed">Completed</option>
-                <option value="cancelled">Cancelled</option>
-              </select>
-            </div>
+                  return (
+                    <Card
+                      key={scrim.id}
+                      hover
+                      padding="p-4 sm:p-5"
+                      className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+                    >
+                      <div>
+                        <div className="text-base font-bold text-white uppercase font-rajdhani">
+                          {teamName} <span className="text-valAccent font-normal">vs</span> {scrim.opponent}
+                        </div>
 
-            <button
-              type="submit"
-              className="w-full bg-valRed hover:bg-valRedDark text-white font-bold py-2.5 rounded-lg uppercase tracking-wider transition-colors shadow-md"
-            >
-              Confirm Scrim Slot
-            </button>
-          </form>
-        </div>
+                        <div className="flex flex-wrap items-center gap-4 mt-1.5 text-xs text-valMuted font-mono">
+                          <span className="flex items-center gap-1.5 text-slate-300">
+                            <MapPin className="w-3.5 h-3.5 text-teal-400" /> {scrim.map}
+                          </span>
+                          <span className="flex items-center gap-1.5 text-slate-300">
+                            <Clock className="w-3.5 h-3.5 text-amber-400" /> {formattedDate}
+                          </span>
+                        </div>
+                      </div>
 
-        {/* Scrims List */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-black text-white uppercase tracking-wider">
-              Upcoming & Recent Scrims
-            </h2>
-            <span className="text-xs text-slate-400 font-mono">
-              {scrims.length} matches logged
-            </span>
+                      <div className="shrink-0">{getStatusBadge(scrim.status)}</div>
+                    </Card>
+                  );
+                })}
+              </div>
+            )}
           </div>
-
-          {loading ? (
-            <div className="text-center py-12 text-slate-400">Loading scrim records...</div>
-          ) : scrims.length === 0 ? (
-            <div className="text-center py-12 bg-valCard rounded-xl border border-slate-800 text-slate-400 text-xs">
-              No scrims scheduled. Use the form to book your first practice lobby.
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {scrims.map((scrim) => {
-                const teamName = teams.find((t) => t.id === scrim.teamId)?.name || 'Team 1';
-                const formattedDate = new Date(scrim.datetime).toLocaleString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                });
-
-                return (
-                  <div
-                    key={scrim.id}
-                    className="bg-valCard border border-slate-800 hover:border-slate-700 rounded-xl p-5 shadow-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all"
-                  >
-                    <div>
-                      <div className="flex items-center gap-3">
-                        <span className="text-base font-bold text-white">
-                          {teamName} <span className="text-valRed font-normal">vs</span> {scrim.opponent}
-                        </span>
-                      </div>
-
-                      <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-slate-400">
-                        <span className="flex items-center gap-1 font-mono text-slate-300">
-                          <MapPin className="w-3.5 h-3.5 text-valTeal" /> {scrim.map}
-                        </span>
-                        <span className="flex items-center gap-1 font-mono text-slate-300">
-                          <Clock className="w-3.5 h-3.5 text-amber-400" /> {formattedDate}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="shrink-0">{getStatusBadge(scrim.status)}</div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
         </div>
-      </div>
+      )}
     </div>
   );
 }
