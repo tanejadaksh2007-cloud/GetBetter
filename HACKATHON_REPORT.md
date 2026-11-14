@@ -4,14 +4,14 @@
 ---
 
 ## 1. Problem Statement
-First-person tactical shooters like Riot Games’ *VALORANT* require millisecond reaction times, sharp mechanical micro-aim, and split-second flicking. Research on StarCraft 2 players found that reaction speed begins to decline in the mid-20s (Thompson et al., 2014). We use this as a proxy for tactical shooters like VALORANT; it is not a VALORANT-specific finding. As a consequence, thousands of experienced Tier-2, Tier-3, and collegiate competitors (unverified) face an abrupt "career cliff" where they can no longer out-aim 17-year-old prodigies. 
+First-person tactical shooters like Riot Games’ *VALORANT* require millisecond reaction times, sharp mechanical micro-aim, and split-second flicking. Research on StarCraft 2 players found that reaction speed begins to decline around age 24 (Thompson et al., 2014). We use this as a proxy for tactical shooters like VALORANT; it is not a VALORANT-specific finding. As a consequence, experienced collegiate and semi-pro competitors face a gradual decline in reaction speed that makes it harder to compete on aim against younger players. 
 
 However, these veteran players possess deep tactical capital:
 * Sophisticated understanding of map macro and economy rotations.
 * Mid-round shot-calling and anti-strat discipline.
 * Smoke timing, utility combo synchronization, and site retake protocols.
 
-Simultaneously, the rapidly expanding amateur ecosystem—spanning collegiate leagues (e.g., NACE (unverified), Red Bull Campus Clutch (unverified)) and semi-pro circuits (VALORANT Challengers (unverified), Premier Contender (unverified))—struggles with two chronic bottlenecks:
+Simultaneously, the rapidly expanding amateur ecosystem—spanning collegiate leagues and semi-pro circuits—struggles with two chronic bottlenecks:
 1. **Lack of tactical leadership:** Young rosters rely excessively on raw mechanical aim, falling apart during coordinated retakes and defensive holds.
 2. **High roster churn:** Teams consistently cycle through missing roles (such as dedicated Controllers or in-game leaders) without structured matching or coaching oversight.
 
@@ -40,9 +40,9 @@ Currently, no dedicated platform channels the strategic knowledge of aging tacti
 | :--- | :--- | :--- | :--- |
 | **WeCoach** | Connects individual players to verified pros for 1-on-1 gameplay lessons and VOD reviews across multiple titles. | Focuses on individual consumer rank-up lessons ("play with a pro"); lacks roster management, role-based team builder, and scrim analytics. | [wecoach.gg](https://wecoach.gg) |
 | **ReadyUp** | Started as an amateur team management and scheduling hub (2017); subsequently pivoted towards fan-discovery SaaS and creator event scheduling. (unverified) | Does not offer specialized tactical role matching for VALORANT, nor does it provide integrated timestamped VOD feedback or round analytics. *(Status of legacy team management tool: unverified/inactive).* | [gamesindustry.biz](https://www.gamesindustry.biz/readyup-esports-management-platform-raises-usd2m) |
-| **Gamer Sensei** | Pioneer coaching marketplace offering skills benchmark assessments and curriculum-based training; acquired by Corsair in 2020. | Current status unclear (unverified) *(unverified active storefront; directs to Corsair ecosystem)*. Focused primarily on individual hourly lessons rather than roster construction or team scrim telemetry. | [corsair.com](https://www.corsair.com/us/en/explorer/gamer-sensei/) |
+| **Gamer Sensei** | Coaching marketplace offering skills assessments and training; reportedly acquired by Corsair in 2020 (unverified). | Status unclear (unverified); may now sit under Corsair. Focused on individual lessons rather than roster construction or team scrim analytics. | [corsair.com](https://www.corsair.com/us/en/explorer/gamer-sensei/) |
 
-**The Gap:** Existing platforms treat esports coaching as an individual consumer transaction (a solo-queue player paying $20 to get out of Silver). None we found bridge team-level tactical mechanics, role-overlap team building, and persistent team progression analytics in a unified platform.
+**The Gap:** Existing platforms treat esports coaching as an individual consumer transaction (illustrative: a solo-queue player paying for a one-off rank-up lesson). None we found bridge team-level tactical mechanics, role-overlap team building, and persistent team progression analytics in a unified platform.
 
 ---
 
@@ -186,7 +186,7 @@ graph TD
 3. **Platform Leakage to Discord:** Once a team establishes rapport with a coach, they may attempt to take future payments and sessions off-platform to Discord to avoid platform fees. 
    * *Mitigation:* The platform must provide sticky software value (VOD timestamp history, shared team playbooks) that cannot be replicated in a Discord call.
 4. **Cold-Start Liquidity Problem:** A two-sided marketplace requires both coaches and teams to be active simultaneously.
-   * *Mitigation:* Seed the platform initially by partnering directly with 4–6 collegiate esports directors and veteran Tier-2 players (*unverified operational pilot*).
+   * *Mitigation:* Seed the platform initially by partnering directly with 4–6 collegiate esports directors and veteran Tier-2 players (*planned pilot*).
 5. **Limited Supply of Ex-Pros:** The total pool of retired semi-pro players in their mid-20s is finite compared to the broader player base.
 6. **Low Barrier to Feature Duplication:** Established stats platforms (e.g., Tracker Network) could theoretically add team scheduling modules. Our moat rests in coach track records and role-overlap algorithms.
 
@@ -203,7 +203,7 @@ graph TD
 ---
 
 ## 12. Conclusion
-The narrative that esports competitors become obsolete at age 24 is an inefficient byproduct of an industry that historically valued aim over structured teamwork. *Veteran* reimagines this dynamic by providing ex-competitors with a dignified, monetizable pathway into tactical mentorship, while providing collegiate and semi-pro VALORANT teams with the missing roles and strategic coaching they need to succeed.
+The idea that competitors lose their value once reaction speed starts declining ignores the strategic skill veterans keep. *Veteran* reimagines this dynamic by providing ex-competitors with a dignified, monetizable pathway into tactical mentorship, while providing collegiate and semi-pro VALORANT teams with the missing roles and strategic coaching they need to succeed.
 
 ---
 
