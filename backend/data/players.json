@@ -1,0 +1,98 @@
+[
+  {
+    "puuid": "ply-001",
+    "gameName": "ViperMain24",
+    "tagLine": "NA1",
+    "role": "Controller",
+    "agents": ["Viper", "Omen", "Brimstone"],
+    "type": "coach"
+  },
+  {
+    "puuid": "ply-002",
+    "gameName": "AimDecay99",
+    "tagLine": "VAL",
+    "role": "Initiator",
+    "agents": ["Sova", "Fade", "Breach"],
+    "type": "coach"
+  },
+  {
+    "puuid": "ply-003",
+    "gameName": "BoomerIGL",
+    "tagLine": "007",
+    "role": "Sentinel",
+    "agents": ["Killjoy", "Cypher"],
+    "type": "coach"
+  },
+  {
+    "puuid": "ply-004",
+    "gameName": "OldManSova",
+    "tagLine": "LINE",
+    "role": "Initiator",
+    "agents": ["Sova", "Gekko"],
+    "type": "coach"
+  },
+  {
+    "puuid": "ply-005",
+    "gameName": "SmokesDad",
+    "tagLine": "VET",
+    "role": "Controller",
+    "agents": ["Astra", "Omen", "Clove"],
+    "type": "coach"
+  },
+  {
+    "puuid": "ply-006",
+    "gameName": "TacticalPanda",
+    "tagLine": "NA",
+    "role": "Sentinel",
+    "agents": ["Cypher", "Deadlock", "Sage"],
+    "type": "coach"
+  },
+  {
+    "puuid": "ply-007",
+    "gameName": "FlashBlink",
+    "tagLine": "FAST",
+    "role": "Duelist",
+    "agents": ["Jett", "Reyna", "Raze"],
+    "type": "player"
+  },
+  {
+    "puuid": "ply-008",
+    "gameName": "DizzyDrone",
+    "tagLine": "EYES",
+    "role": "Initiator",
+    "agents": ["Skye", "Fade", "Gekko"],
+    "type": "player"
+  },
+  {
+    "puuid": "ply-009",
+    "gameName": "SilentLurker",
+    "tagLine": "HUNT",
+    "role": "Sentinel",
+    "agents": ["Cypher", "Chamber"],
+    "type": "player"
+  },
+  {
+    "puuid": "ply-010",
+    "gameName": "NeonDash",
+    "tagLine": "ZAP",
+    "role": "Duelist",
+    "agents": ["Neon", "Iso", "Phoenix"],
+    "type": "player"
+  },
+  {
+    "puuid": "ply-011",
+    "gameName": "DarkCover",
+    "tagLine": "VOID",
+    "role": "Controller",
+    "agents": ["Omen", "Viper", "Harbor"],
+    "type": "player"
+  },
+  {
+    "puuid": "ply-012",
+    "gameName": "LockdownPro",
+    "tagLine": "COL",
+    "role": "Sentinel",
+    "agents": ["Killjoy", "Sage"],
+    "type": "player"
+  }
+]

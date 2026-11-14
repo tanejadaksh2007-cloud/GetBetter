@@ -1,0 +1,46 @@
+[
+  {
+    "id": "team-001",
+    "name": "Rutgers Scarlet Knights",
+    "level": "college",
+    "members": [
+      { "puuid": "ply-007", "gameName": "FlashBlink", "role": "Duelist" },
+      { "puuid": "ply-008", "gameName": "DizzyDrone", "role": "Initiator" },
+      { "puuid": "ply-012", "gameName": "LockdownPro", "role": "Sentinel" }
+    ],
+    "missingRoles": ["Controller", "IGL"]
+  },
+  {
+    "id": "team-002",
+    "name": "Redline Gaming",
+    "level": "semi-pro",
+    "members": [
+      { "puuid": "ply-010", "gameName": "NeonDash", "role": "Duelist" },
+      { "puuid": "ply-011", "gameName": "DarkCover", "role": "Controller" },
+      { "puuid": "ply-009", "gameName": "SilentLurker", "role": "Sentinel" }
+    ],
+    "missingRoles": ["Initiator", "anti-strat"]
+  },
+  {
+    "id": "team-003",
+    "name": "CalTech Strikers",
+    "level": "college",
+    "members": [
+      { "puuid": "ply-007", "gameName": "FlashBlink", "role": "Duelist" },
+      { "puuid": "ply-011", "gameName": "DarkCover", "role": "Controller" }
+    ],
+    "missingRoles": ["Sentinel", "Initiator", "IGL"]
+  },
+  {
+    "id": "team-004",
+    "name": "Apex Novas",
+    "level": "semi-pro",
+    "members": [
+      { "puuid": "ply-008", "gameName": "DizzyDrone", "role": "Initiator" },
+      { "puuid": "ply-009", "gameName": "SilentLurker", "role": "Sentinel" },
+      { "puuid": "ply-010", "gameName": "NeonDash", "role": "Duelist" },
+      { "puuid": "ply-012", "gameName": "LockdownPro", "role": "Sentinel" }
+    ],
+    "missingRoles": ["Controller", "controller"]
+  }
+]

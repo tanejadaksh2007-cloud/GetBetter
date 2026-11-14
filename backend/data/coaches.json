@@ -1,0 +1,108 @@
+[
+  {
+    "id": "cch-101",
+    "name": "Marcus 'ViperMain24' Vance",
+    "formerRole": "Controller",
+    "specialty": "controller",
+    "agents": ["Viper", "Omen", "Brimstone"],
+    "bio": "27-year-old former Tier 2 Controller main. Aim took a dip, but macro understanding, post-plant setups, and smoke protocol are sharper than ever. Specializes in turning disorganized teams into site-retake masters.",
+    "hourlyRate": 35,
+    "results": [
+      {
+        "team": "Rutgers Esports",
+        "before": "42% win rate",
+        "after": "65% win rate"
+      },
+      {
+        "team": "Redline Gaming",
+        "before": "1.8 attack round average",
+        "after": "5.4 attack round average"
+      }
+    ]
+  },
+  {
+    "id": "cch-102",
+    "name": "Sarah 'AimDecay99' Chen",
+    "formerRole": "IGL / Initiator",
+    "specialty": "IGL",
+    "agents": ["Sova", "Fade", "Breach"],
+    "bio": "Former collegiate captain who transitioned to tactical directing. Focuses on mid-round calling, economy discipline, and utility combos. Great with vocal leadership drills for quiet squads.",
+    "hourlyRate": 45,
+    "results": [
+      {
+        "team": "State College Valorant",
+        "before": "Quarterfinal dropouts",
+        "after": "Collegiate Finals Runner-up"
+      },
+      {
+        "team": "Apex Novas",
+        "before": "40% win rate",
+        "after": "58% win rate"
+      }
+    ]
+  },
+  {
+    "id": "cch-103",
+    "name": "Devon 'BoomerIGL' Brooks",
+    "formerRole": "Sentinel",
+    "specialty": "anti-strat",
+    "agents": ["Killjoy", "Cypher"],
+    "bio": "28 years old, CS:GO veteran turned Valorant anti-strat guru. Analyzes competitor VODs, maps default tendencies, and builds tailored counter-utility playbooks for tournament weekends.",
+    "hourlyRate": 50,
+    "results": [
+      {
+        "team": "Blue Horizon",
+        "before": "38% win rate vs top 4",
+        "after": "67% win rate vs top 4"
+      }
+    ]
+  },
+  {
+    "id": "cch-104",
+    "name": "Leon 'OldManSova' Miller",
+    "formerRole": "Initiator",
+    "specialty": "IGL",
+    "agents": ["Sova", "Gekko"],
+    "bio": "Specialist in recon-first executes and info-denial setups. Teaches young rosters how to stop face-checking angles and coordinate drone/flash trading.",
+    "hourlyRate": 40,
+    "results": [
+      {
+        "team": "CalTech Strikers",
+        "before": "45% round win rate",
+        "after": "59% round win rate"
+      }
+    ]
+  },
+  {
+    "id": "cch-105",
+    "name": "Elena 'SmokesDad' Reyes",
+    "formerRole": "Controller",
+    "specialty": "controller",
+    "agents": ["Astra", "Omen", "Clove"],
+    "bio": "Deep knowledge of high-tempo Astra stars and Omen one-way timings. Excellent for teams struggling on Ascent, Haven, and Lotus defense setups.",
+    "hourlyRate": 30,
+    "results": [
+      {
+        "team": "Eclipse Prime",
+        "before": "35% defense hold rate",
+        "after": "62% defense hold rate"
+      }
+    ]
+  },
+  {
+    "id": "cch-106",
+    "name": "Kenji 'TacticalPanda' Sato",
+    "formerRole": "Sentinel",
+    "specialty": "anti-strat",
+    "agents": ["Cypher", "Deadlock", "Sage"],
+    "bio": "Master of site lockdown mechanics and micro-flank positioning. Known for crafting custom playbook notes and rigorous scrim analysis.",
+    "hourlyRate": 45,
+    "results": [
+      {
+        "team": "Northshore Titans",
+        "before": "44% win rate",
+        "after": "61% win rate"
+      }
+    ]
+  }
+]
