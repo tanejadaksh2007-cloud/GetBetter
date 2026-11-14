@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Button from './Button';
 
 export default function CoachCard({ coach }) {
-  // Helper to extract initials
   const getInitials = (name) => {
     if (!name) return 'C';
     const clean = name.replace(/['"].*?['"]/g, '').trim();
@@ -12,7 +11,6 @@ export default function CoachCard({ coach }) {
     return name.slice(0, 2).toUpperCase();
   };
 
-  // Anonymize real university/team names into fictional tactical team names
   const sanitizeTeamName = (teamStr) => {
     if (!teamStr) return 'Team Alpha';
     if (/rutgers/i.test(teamStr)) return 'Team Alpha';
@@ -38,95 +36,94 @@ export default function CoachCard({ coach }) {
   const isPercentWinRate = beforePercent !== null && afterPercent !== null;
 
   return (
-    <div className="relative bg-valCard border border-valBorder clip-cut-corner-br hover:border-valAccent transition-all duration-150 hover:-translate-y-1 hover:shadow-xl hover:shadow-valAccent/10 group flex flex-col justify-between">
+    <div className="relative bg-surface border border-border clip-cut-corner-br hover:border-red hover:shadow-[0_0_0_1px_#FF4655] transition-all duration-150 hover:-translate-y-1 group flex flex-col justify-between">
       {/* Top thin red tactical line */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-valBorder group-hover:bg-valAccent transition-colors duration-150" />
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-border group-hover:bg-red transition-colors duration-150" />
 
       <div className="p-5 sm:p-6 space-y-4">
-        {/* Top: Avatar with cut corner, Name, Role, Hourly Rate */}
+        {/* Top: Avatar, Name, Role, Hourly Rate */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            {/* Initials Avatar with diagonal cut */}
-            <div className="w-12 h-12 bg-[#121C26] border border-valBorder flex items-center justify-center font-rajdhani font-black text-lg text-valText clip-cut-corner-tl group-hover:border-valAccent/60 transition-colors">
-              <span className="text-valAccent mr-0.5">•</span>
+            {/* Centered padded avatar initials without dot */}
+            <div className="w-12 h-12 bg-bg border border-border flex items-center justify-center font-rajdhani font-black text-lg text-text p-2 clip-cut-corner-tl group-hover:border-red/60 transition-colors">
               {getInitials(coach.name)}
             </div>
 
             <div>
-              <h2 className="text-xl font-bold font-rajdhani uppercase tracking-wide text-valText group-hover:text-valAccent transition-colors leading-tight">
+              <h2 className="text-xl font-bold font-rajdhani uppercase tracking-wide text-text group-hover:text-red transition-colors leading-tight">
                 {coach.name}
               </h2>
-              <span className="text-xs text-valMuted font-mono block mt-0.5">
-                Former: <strong className="text-slate-300 font-normal">{coach.formerRole}</strong>
+              <span className="text-xs text-muted font-mono block mt-0.5">
+                Former: <strong className="text-text font-normal">{coach.formerRole}</strong>
               </span>
             </div>
           </div>
 
-          {/* Rate Badge */}
-          <div className="bg-[#121C26] border border-valBorder px-2.5 py-1 text-right clip-slant-right">
-            <span className="text-base font-black font-rajdhani text-valText block leading-tight">
+          {/* Rate Badge - Yellow accent */}
+          <div className="bg-bg border border-border px-3 py-1 text-right clip-slant-right">
+            <span className="text-lg font-black font-rajdhani text-yellow block leading-tight">
               ${coach.hourlyRate}
             </span>
-            <span className="text-[9px] font-mono text-valMuted uppercase block">/ hr</span>
+            <span className="text-[9px] font-mono text-muted uppercase block">/ hr</span>
           </div>
         </div>
 
         {/* Specialty Pill */}
-        <div className="inline-block bg-[#121C26] border-l-2 border-l-valAccent border-y border-r border-valBorder px-2.5 py-0.5 text-[11px] font-rajdhani font-bold uppercase tracking-widest text-valAccent">
+        <div className="inline-block bg-bg border-l-2 border-l-red border-y border-r border-border px-2.5 py-0.5 text-[11px] font-rajdhani font-bold uppercase tracking-widest text-red">
           {coach.specialty}
         </div>
 
-        {/* Middle: Highlighted Result Block (Placeholder data) */}
+        {/* Middle: Highlighted Result Block with PLACEHOLDER DATA label in Yellow */}
         {primaryResult && (
-          <div className="bg-[#121C26] border border-valBorder/80 p-3.5 space-y-2 clip-slant-right">
+          <div className="bg-bg border border-border/80 p-3.5 space-y-2 clip-slant-right">
             <div className="flex items-center justify-between text-[11px] font-mono">
-              <span className="font-semibold text-slate-300 uppercase tracking-wide">
+              <span className="font-semibold text-text uppercase tracking-wide">
                 {teamLabel}
               </span>
-              <span className="text-[9px] font-bold uppercase tracking-wider text-valMuted bg-black/40 px-1.5 py-0.5 rounded border border-valBorderSubtle">
-                Placeholder data
+              <span className="text-[9px] font-bold uppercase tracking-wider text-yellow bg-yellow/10 border border-yellow/30 px-1.5 py-0.5">
+                PLACEHOLDER DATA
               </span>
             </div>
 
             {isPercentWinRate ? (
               <div className="space-y-1.5 pt-0.5">
                 <div className="flex items-baseline justify-between font-rajdhani">
-                  <span className="text-xs text-valMuted uppercase font-bold tracking-wider">
+                  <span className="text-xs text-muted uppercase font-bold tracking-wider">
                     Win Rate Shift:
                   </span>
                   <div className="text-base font-black tracking-wide">
-                    <span className="text-rose-400 font-mono">{primaryResult.before}</span>
-                    <span className="text-valMuted mx-1.5">→</span>
-                    <span className="text-teal-400 font-mono text-lg">{primaryResult.after}</span>
+                    <span className="text-red font-mono">{primaryResult.before}</span>
+                    <span className="text-muted mx-1.5">→</span>
+                    <span className="text-yellow font-mono text-lg">{primaryResult.after}</span>
                   </div>
                 </div>
 
-                {/* Progress Comparison Bar */}
-                <div className="w-full bg-[#1A2633] h-2 overflow-hidden flex relative">
+                {/* Progress Comparison Bar: Red for 'before', Yellow for 'after' */}
+                <div className="w-full bg-[#202024] h-2 overflow-hidden flex relative">
                   <div
-                    className="bg-rose-500 h-full"
+                    className="bg-red h-full"
                     style={{ width: `${beforePercent}%` }}
                     title={`Before: ${primaryResult.before}`}
                   />
                   <div
-                    className="bg-teal-400 h-full"
+                    className="bg-yellow h-full"
                     style={{ width: `${Math.max(0, afterPercent - beforePercent)}%` }}
                     title={`After: ${primaryResult.after}`}
                   />
                 </div>
               </div>
             ) : (
-              <div className="text-xs font-mono text-valMuted">
+              <div className="text-xs font-mono text-muted">
                 <span>{primaryResult.before}</span>
-                <span className="text-valMuted mx-1.5">→</span>
-                <span className="text-teal-400 font-bold">{primaryResult.after}</span>
+                <span className="text-muted mx-1.5">→</span>
+                <span className="text-yellow font-bold">{primaryResult.after}</span>
               </div>
             )}
           </div>
         )}
 
-        {/* Below: 2-line clamped bio */}
-        <p className="text-xs text-valMuted line-clamp-2 leading-relaxed">
+        {/* 2-line clamped bio in readable text */}
+        <p className="text-xs text-muted line-clamp-2 leading-relaxed">
           {coach.bio}
         </p>
 
@@ -135,7 +132,7 @@ export default function CoachCard({ coach }) {
           {coach.agents?.map((agent) => (
             <span
               key={agent}
-              className="bg-[#121C26] text-slate-300 border border-valBorder/80 text-[10px] font-mono px-2 py-0.5"
+              className="bg-bg text-text border border-border text-[10px] font-mono px-2 py-0.5"
             >
               {agent}
             </span>
@@ -143,10 +140,10 @@ export default function CoachCard({ coach }) {
         </div>
       </div>
 
-      {/* Bottom: Full-width "View profile" button */}
+      {/* Bottom: Full-width Primary button with solid red */}
       <div className="p-5 sm:p-6 pt-0">
         <Link to={`/coaches/${coach.id}`} className="block w-full">
-          <Button variant="secondary" size="md" className="w-full text-center group-hover:bg-valAccent group-hover:text-white group-hover:border-valAccent transition-colors">
+          <Button variant="primary" size="md" className="w-full text-center">
             View Profile
           </Button>
         </Link>

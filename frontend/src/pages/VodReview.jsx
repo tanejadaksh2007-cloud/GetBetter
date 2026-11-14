@@ -6,7 +6,6 @@ import Badge from '../components/ui/Badge';
 import Input from '../components/ui/Input';
 import PageHeader from '../components/ui/PageHeader';
 import LoadingSkeleton from '../components/ui/LoadingSkeleton';
-import EmptyState from '../components/ui/EmptyState';
 
 export default function VodReview() {
   const [vods, setVods] = useState([]);
@@ -136,7 +135,7 @@ export default function VodReview() {
       {/* Page Header */}
       <PageHeader
         badge={
-          <Badge variant="accent" size="sm">
+          <Badge variant="red" size="sm">
             <Video className="w-3 h-3 inline mr-1" /> Tactical Analysis
           </Badge>
         }
@@ -145,8 +144,8 @@ export default function VodReview() {
       />
 
       {error ? (
-        <Card className="text-center py-12 text-rose-300">
-          <AlertCircle className="w-8 h-8 text-valAccent mx-auto mb-2" />
+        <Card className="text-center py-12 text-red">
+          <AlertCircle className="w-8 h-8 text-red mx-auto mb-2" />
           <p className="text-sm font-semibold">{error}</p>
         </Card>
       ) : loading ? (
@@ -168,15 +167,15 @@ export default function VodReview() {
                     />
                   </div>
 
-                  <div className="p-5 border-t border-valBorder flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                  <div className="p-5 border-t border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
-                      <h2 className="text-xl font-bold uppercase tracking-wide text-white font-rajdhani">
+                      <h2 className="text-xl font-bold uppercase tracking-wide text-text font-rajdhani">
                         {activeVod.title}
                       </h2>
-                      <div className="text-xs text-valMuted mt-1 flex flex-wrap items-center gap-3 font-mono">
-                        <span>Match ID: <strong className="text-slate-200">{activeVod.matchId}</strong></span>
+                      <div className="text-xs text-muted mt-1 flex flex-wrap items-center gap-3 font-mono">
+                        <span>Match ID: <strong className="text-text">{activeVod.matchId}</strong></span>
                         <span>•</span>
-                        <span>Reviewer: <strong className="text-teal-300">{activeVod.coachName}</strong></span>
+                        <span>Reviewer: <strong className="text-yellow">{activeVod.coachName}</strong></span>
                       </div>
                     </div>
 
@@ -184,14 +183,14 @@ export default function VodReview() {
                       href={activeVod.link}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs text-valMuted hover:text-white bg-[#121C26] border border-valBorder hover:border-slate-500 px-3 py-1.5 rounded-lg transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-text bg-bg border border-border hover:border-red px-3 py-1.5 transition-colors font-mono clip-slant-right"
                     >
-                      <ExternalLink className="w-3.5 h-3.5" /> Direct Link
+                      <ExternalLink className="w-3.5 h-3.5 text-red" /> Direct Link
                     </a>
                   </div>
                 </div>
               ) : (
-                <div className="p-16 text-center text-valMuted text-xs">
+                <div className="p-16 text-center text-muted text-xs font-mono">
                   No active VOD selected.
                 </div>
               )}
@@ -199,7 +198,7 @@ export default function VodReview() {
 
             {/* Import New VOD Box */}
             <Card className="p-5 space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-valMuted">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted font-mono">
                 Import New Scrim Replay
               </h3>
               <form onSubmit={handleAddVod} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -224,24 +223,24 @@ export default function VodReview() {
           {/* Right: Timestamped Notes & Feedback */}
           <div className="space-y-6">
             <Card className="p-5 space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-valBorder">
-                <h3 className="text-lg font-bold uppercase tracking-wide text-white font-rajdhani flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4 text-teal-400" />
+              <div className="flex items-center justify-between pb-3 border-b border-border">
+                <h3 className="text-lg font-bold uppercase tracking-wide text-text font-rajdhani flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4 text-red" />
                   Timestamp Notes
                 </h3>
-                <Badge variant="teal" size="sm">
+                <Badge variant="yellow" size="sm">
                   {activeVod?.notes?.length || 0} notes
                 </Badge>
               </div>
 
               {selectedTimestamp && (
-                <div className="p-2.5 rounded-lg bg-red-950/40 border border-valAccent/30 text-xs text-rose-200 flex items-center justify-between">
-                  <span>
-                    Highlighting timestamp: <strong className="font-mono text-white">{selectedTimestamp}</strong>
+                <div className="p-2.5 bg-bg border border-red text-xs text-text flex items-center justify-between clip-slant-right">
+                  <span className="font-mono">
+                    Highlighting timestamp: <strong className="text-yellow">{selectedTimestamp}</strong>
                   </span>
                   <button
                     onClick={() => setSelectedTimestamp(null)}
-                    className="text-valMuted hover:text-white text-xs"
+                    className="text-muted hover:text-red text-xs cursor-pointer font-bold"
                   >
                     ✕
                   </button>
@@ -251,7 +250,7 @@ export default function VodReview() {
               {/* Note List */}
               <div className="space-y-2.5 max-h-[340px] overflow-y-auto pr-1">
                 {activeVod?.notes?.length === 0 ? (
-                  <div className="text-center py-8 text-valMuted text-xs">
+                  <div className="text-center py-8 text-muted text-xs font-mono">
                     No timestamp notes added yet. Use the form below.
                   </div>
                 ) : (
@@ -261,20 +260,20 @@ export default function VodReview() {
                       <div
                         key={n.id || i}
                         onClick={() => setSelectedTimestamp(n.timestamp)}
-                        className={`p-3 rounded-lg border cursor-pointer transition-all duration-180 text-xs space-y-1 ${
+                        className={`p-3 border cursor-pointer transition-all duration-150 text-xs space-y-1 clip-slant-right ${
                           isSelected
-                            ? 'bg-valCardHover border-valAccent text-white shadow-sm'
-                            : 'bg-[#121C26] border-valBorder hover:border-slate-600 text-slate-300'
+                            ? 'bg-surface-hover border-red text-text shadow-sm'
+                            : 'bg-bg border-border hover:border-red text-text/90'
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="font-mono font-bold text-amber-300 bg-amber-950/60 border border-amber-800/40 px-2 py-0.5 rounded text-[11px] flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-amber-400" />
+                          <span className="font-mono font-bold text-yellow bg-yellow/10 border border-yellow/30 px-2 py-0.5 text-[11px] flex items-center gap-1">
+                            <Clock className="w-3 h-3 text-yellow" />
                             {n.timestamp}
                           </span>
-                          <span className="text-[10px] text-valMuted">Click to focus</span>
+                          <span className="text-[10px] text-muted font-mono">Click to focus</span>
                         </div>
-                        <p className="pt-1 leading-relaxed text-slate-200">{n.text}</p>
+                        <p className="pt-1 leading-relaxed text-text/80">{n.text}</p>
                       </div>
                     );
                   })
@@ -282,8 +281,8 @@ export default function VodReview() {
               </div>
 
               {/* Add Note Form */}
-              <form onSubmit={handleAddNote} className="pt-3 border-t border-valBorder space-y-2.5">
-                <span className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+              <form onSubmit={handleAddNote} className="pt-3 border-t border-border space-y-2.5">
+                <span className="block text-xs font-bold uppercase tracking-wider text-muted font-mono">
                   Add Timestamp Note
                 </span>
                 <div className="flex gap-2">
@@ -312,7 +311,7 @@ export default function VodReview() {
 
             {/* Sessions Selector */}
             <Card className="p-5 space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-valMuted">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-muted font-mono">
                 Active Scrim Sessions
               </h4>
               <div className="space-y-2">
@@ -320,13 +319,13 @@ export default function VodReview() {
                   <button
                     key={v.id}
                     onClick={() => setActiveVod(v)}
-                    className={`w-full text-left p-2.5 rounded-lg border text-xs transition-colors flex items-center justify-between cursor-pointer ${
+                    className={`w-full text-left p-2.5 border text-xs transition-colors flex items-center justify-between cursor-pointer clip-slant-right ${
                       activeVod?.id === v.id
-                        ? 'bg-valCardHover border-valAccent text-white'
-                        : 'bg-[#121C26] border-valBorder text-valMuted hover:border-slate-600 hover:text-white'
+                        ? 'bg-surface-hover border-red text-text font-bold'
+                        : 'bg-bg border-border text-muted hover:border-muted hover:text-text'
                     }`}
                   >
-                    <span className="truncate pr-2 font-medium">{v.title}</span>
+                    <span className="truncate pr-2">{v.title}</span>
                     <Badge variant="outline" size="sm">
                       {v.notes?.length || 0}
                     </Badge>

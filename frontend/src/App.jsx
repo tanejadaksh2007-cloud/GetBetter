@@ -15,7 +15,7 @@ import Dashboard from './pages/Dashboard';
 
 export default function App() {
   return (
-    <div className="flex flex-col min-h-screen bg-valDark text-slate-100">
+    <div className="flex flex-col min-h-screen bg-bg text-text">
       {/* Riot Approval Warning Mockup Banner */}
       <Banner />
 

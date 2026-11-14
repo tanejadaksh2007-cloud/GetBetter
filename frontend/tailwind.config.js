@@ -7,15 +7,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        valDark: '#0F1923',
-        valCard: '#1B2733',
-        valCardHover: '#223242',
-        valAccent: '#FF4655',
-        valAccentDark: '#E03645',
-        valText: '#ECE8E1',
-        valMuted: '#8B97A3',
-        valBorder: '#27384A',
-        valBorderSubtle: '#1C2936',
+        bg: 'var(--color-bg)',
+        surface: 'var(--color-surface)',
+        'surface-hover': 'var(--color-surface-hover)',
+        border: 'var(--color-border)',
+        'border-subtle': 'var(--color-border-subtle)',
+        red: {
+          DEFAULT: 'var(--color-red)',
+          hover: 'var(--color-red-hover)',
+        },
+        yellow: {
+          DEFAULT: 'var(--color-yellow)',
+          hover: 'var(--color-yellow-hover)',
+        },
+        text: 'var(--color-text)',
+        muted: 'var(--color-muted)',
       },
       fontFamily: {
         rajdhani: ['Rajdhani', 'sans-serif'],

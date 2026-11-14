@@ -7,20 +7,22 @@ export default function Badge({
   className = '',
   ...props
 }) {
-  const base = 'inline-flex items-center font-semibold uppercase tracking-wider rounded font-mono select-none';
+  const base = 'inline-flex items-center font-bold uppercase tracking-wider font-mono select-none';
 
   const variants = {
-    default: 'bg-slate-800 text-slate-300 border border-slate-700/60',
-    accent: 'bg-red-950/70 text-valAccent border border-valAccent/40',
-    teal: 'bg-teal-950/60 text-teal-300 border border-teal-800/60',
-    amber: 'bg-amber-950/60 text-amber-300 border border-amber-800/60',
-    outline: 'bg-transparent text-valMuted border border-valBorder',
-    win: 'bg-emerald-950/80 text-emerald-400 border border-emerald-800',
-    loss: 'bg-rose-950/80 text-rose-400 border border-rose-800',
+    default: 'bg-surface-hover text-muted border border-border',
+    red: 'bg-red/15 text-red border border-red/40',
+    accent: 'bg-red/15 text-red border border-red/40',
+    yellow: 'bg-yellow/15 text-yellow border border-yellow/50',
+    teal: 'bg-yellow/15 text-yellow border border-yellow/50',
+    amber: 'bg-yellow/15 text-yellow border border-yellow/50',
+    outline: 'bg-transparent text-muted border border-border',
+    win: 'bg-yellow/15 text-yellow border border-yellow/60 font-bold',
+    loss: 'bg-red/15 text-red border border-red/60 font-bold',
   };
 
   const sizes = {
-    sm: 'text-[10px] px-1.5 py-0.5 gap-1',
+    sm: 'text-[10px] px-2 py-0.5 gap-1',
     md: 'text-xs px-2.5 py-1 gap-1.5',
     lg: 'text-sm px-3 py-1.5 gap-2',
   };

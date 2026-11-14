@@ -139,7 +139,7 @@ export default function TeamBuilder() {
       {/* Page Header */}
       <PageHeader
         badge={
-          <Badge variant="accent" size="sm">
+          <Badge variant="red" size="sm">
             <Users className="w-3 h-3 inline mr-1" /> Roster Architecture
           </Badge>
         }
@@ -147,14 +147,14 @@ export default function TeamBuilder() {
         description="Pick your squad, declare missing tactical requirements, and match with ranked free agents or veteran coaches based on utility overlap."
         actions={
           <Button variant="secondary" size="md" onClick={() => setShowCreateModal(true)}>
-            <UserPlus className="w-4 h-4 text-valAccent" /> Create Team
+            <UserPlus className="w-4 h-4 text-yellow" /> Create Team
           </Button>
         }
       />
 
       {error ? (
-        <Card className="text-center py-12 text-rose-300">
-          <AlertCircle className="w-8 h-8 text-valAccent mx-auto mb-2" />
+        <Card className="text-center py-12 text-red">
+          <AlertCircle className="w-8 h-8 text-red mx-auto mb-2" />
           <p className="text-sm font-semibold">{error}</p>
         </Card>
       ) : loadingTeams ? (
@@ -164,13 +164,13 @@ export default function TeamBuilder() {
           {/* Active Team Selector & Roster */}
           <Card className="space-y-5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-valMuted mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-muted font-mono mb-2">
                 Select Active Team
               </label>
               <select
                 value={selectedTeamId}
                 onChange={handleSelectTeam}
-                className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs sm:text-sm rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+                className="w-full bg-bg border border-border text-text text-xs sm:text-sm p-2.5 focus:border-red focus:outline-none transition-colors"
               >
                 {teams.map((t) => (
                   <option key={t.id} value={t.id}>
@@ -181,12 +181,12 @@ export default function TeamBuilder() {
             </div>
 
             {currentTeam && (
-              <div className="space-y-3 pt-2 border-t border-valBorder">
+              <div className="space-y-3 pt-2 border-t border-border">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-valMuted uppercase tracking-wider">
+                  <span className="text-xs font-bold text-muted uppercase tracking-wider font-mono">
                     Current Roster ({currentTeam.members?.length || 0}/5)
                   </span>
-                  <Badge variant="teal" size="sm">
+                  <Badge variant="yellow" size="sm">
                     {currentTeam.level}
                   </Badge>
                 </div>
@@ -195,10 +195,10 @@ export default function TeamBuilder() {
                   {currentTeam.members?.map((m) => (
                     <div
                       key={m.puuid}
-                      className="flex justify-between items-center p-2.5 rounded-lg bg-[#121C26] border border-valBorder text-xs"
+                      className="flex justify-between items-center p-2.5 bg-bg border border-border text-xs clip-slant-right"
                     >
-                      <span className="font-semibold text-white">{m.gameName}</span>
-                      <span className="text-valMuted font-mono">{m.role}</span>
+                      <span className="font-bold text-text uppercase font-rajdhani text-sm">{m.gameName}</span>
+                      <span className="text-muted font-mono text-[11px]">{m.role}</span>
                     </div>
                   ))}
                 </div>
@@ -206,13 +206,13 @@ export default function TeamBuilder() {
             )}
           </Card>
 
-          {/* Missing Roles Chips Selector */}
+          {/* Missing Roles Chips Selector: Selected = filled red, Unselected = border only */}
           <Card className="md:col-span-2 space-y-4">
             <div>
-              <h2 className="text-xl font-bold text-white uppercase tracking-wider font-rajdhani flex items-center gap-2">
-                <Target className="w-5 h-5 text-valAccent" /> Missing Tactical Roles
+              <h2 className="text-xl font-bold text-text uppercase tracking-wider font-rajdhani flex items-center gap-2">
+                <Target className="w-5 h-5 text-red" /> Missing Tactical Roles
               </h2>
-              <p className="text-xs text-valMuted mt-0.5">
+              <p className="text-xs text-muted mt-0.5">
                 Toggle the missing roles below to recalculate compatibility scores across candidates.
               </p>
             </div>
@@ -225,15 +225,15 @@ export default function TeamBuilder() {
                     key={role}
                     type="button"
                     onClick={() => toggleRole(role)}
-                    className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider border transition-all duration-180 flex items-center gap-2 cursor-pointer select-none ${
+                    className={`px-4 py-2 text-xs font-rajdhani font-bold uppercase tracking-wider border transition-all duration-150 flex items-center gap-2 cursor-pointer select-none clip-chip ${
                       active
-                        ? 'bg-valAccent text-white border-valAccent shadow-md shadow-valAccent/30 scale-[1.02]'
-                        : 'bg-[#121C26] text-valMuted border-valBorder hover:border-slate-500 hover:text-white'
+                        ? 'bg-red text-white border-red shadow-md shadow-red/30'
+                        : 'bg-surface text-muted border-border hover:border-muted hover:text-text'
                     }`}
                   >
                     <span
-                      className={`w-2 h-2 rounded-full ${
-                        active ? 'bg-white' : 'bg-slate-600'
+                      className={`w-2 h-2 ${
+                        active ? 'bg-white' : 'bg-muted/40'
                       }`}
                     />
                     {role}
@@ -242,12 +242,12 @@ export default function TeamBuilder() {
               })}
             </div>
 
-            <div className="text-[11px] text-valMuted font-mono bg-[#121C26] p-3 rounded-lg border border-valBorder">
+            <div className="text-[11px] text-muted font-mono bg-bg p-3 border border-border clip-slant-right">
               Selected Tags:{' '}
               {missingRoles.length > 0 ? (
-                <span className="text-teal-300 font-bold">{missingRoles.join(', ')}</span>
+                <span className="text-yellow font-bold">{missingRoles.join(', ')}</span>
               ) : (
-                <span className="text-valMuted">None selected (Click roles above to match)</span>
+                <span className="text-muted">None selected (Click roles above to match)</span>
               )}
             </div>
           </Card>
@@ -256,12 +256,12 @@ export default function TeamBuilder() {
 
       {/* Ranked Candidate Results */}
       <div className="space-y-6 pt-4">
-        <div className="flex items-center justify-between border-b border-valBorder pb-3">
-          <h2 className="text-2xl font-bold text-white uppercase tracking-wide font-rajdhani flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-valAccent" />
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h2 className="text-2xl font-black text-text uppercase tracking-wide font-rajdhani flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-red" />
             Ranked Recommendations
           </h2>
-          <span className="text-xs text-valMuted font-mono">
+          <span className="text-xs text-muted font-mono">
             {loadingMatches
               ? 'Computing scores...'
               : `${matchedCoaches.length} Coaches • ${matchedPlayers.length} Players`}
@@ -281,10 +281,10 @@ export default function TeamBuilder() {
             {/* Veteran Coaches Matches */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-valAccent uppercase tracking-wider font-rajdhani">
+                <h3 className="text-base font-bold text-red uppercase tracking-wider font-rajdhani">
                   Veteran Coaches (Mid-Round & Macro)
                 </h3>
-                <span className="text-[11px] text-valMuted font-mono">Ranked by tactical fit</span>
+                <span className="text-[11px] text-muted font-mono">Ranked by tactical fit</span>
               </div>
 
               <div className="space-y-3">
@@ -295,36 +295,36 @@ export default function TeamBuilder() {
                       key={coach.id}
                       hover
                       padding="p-4 sm:p-5"
-                      className="border-valBorder group"
+                      className="group"
                     >
                       <div className="flex justify-between items-start gap-2">
                         <div>
-                          <span className="text-lg font-bold text-white uppercase font-rajdhani block group-hover:text-valAccent transition-colors">
+                          <span className="text-lg font-black text-text uppercase font-rajdhani block group-hover:text-red transition-colors">
                             {coach.name}
                           </span>
-                          <span className="text-xs text-valMuted">
-                            Specialty: <strong className="text-slate-300">{coach.specialty}</strong>
+                          <span className="text-xs text-muted font-mono">
+                            Specialty: <strong className="text-text font-semibold">{coach.specialty}</strong>
                           </span>
                         </div>
                         <div className="text-right">
-                          <span className="text-xs font-mono font-bold text-white block">
+                          <span className="text-sm font-mono font-bold text-yellow block">
                             ${coach.hourlyRate}/hr
                           </span>
-                          <span className="text-[10px] text-valMuted block font-mono">
-                            Placeholder data
+                          <span className="text-[9px] text-yellow uppercase block font-mono font-bold">
+                            PLACEHOLDER DATA
                           </span>
                         </div>
                       </div>
 
-                      {/* Match Score Bar */}
+                      {/* Match Score Bar in Red */}
                       <div className="mt-3 space-y-1">
                         <div className="flex justify-between text-[11px] font-mono">
-                          <span className="text-valMuted">Match Synergy</span>
-                          <span className="text-teal-300 font-bold">{coach.matchScore} pts</span>
+                          <span className="text-muted">Match Synergy</span>
+                          <span className="text-yellow font-bold">{coach.matchScore} pts</span>
                         </div>
-                        <div className="w-full bg-[#121C26] h-2 rounded-full overflow-hidden border border-valBorder">
+                        <div className="w-full bg-[#202024] h-2 overflow-hidden border border-border">
                           <div
-                            className="bg-valAccent h-full rounded-full transition-all duration-300"
+                            className="bg-red h-full transition-all duration-300"
                             style={{ width: `${scoreWidth}%` }}
                           />
                         </div>
@@ -333,14 +333,14 @@ export default function TeamBuilder() {
                       {/* Match Reasons */}
                       <div className="mt-3 text-xs space-y-1">
                         {coach.matchReasons?.map((reason, i) => (
-                          <div key={i} className="flex items-center gap-1.5 text-slate-300">
-                            <CheckCircle className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+                          <div key={i} className="flex items-center gap-1.5 text-text/80">
+                            <CheckCircle className="w-3.5 h-3.5 text-yellow shrink-0" />
                             <span>{reason}</span>
                           </div>
                         ))}
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-valBorder flex items-center justify-between">
+                      <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
                         <div className="flex flex-wrap gap-1">
                           {coach.agents?.map((a) => (
                             <Badge key={a} variant="default" size="sm">
@@ -350,7 +350,7 @@ export default function TeamBuilder() {
                         </div>
                         <a
                           href={`/coaches/${coach.id}`}
-                          className="text-xs text-valAccent font-bold hover:underline font-mono"
+                          className="text-xs text-red font-bold hover:underline font-rajdhani uppercase tracking-wider"
                         >
                           View Profile →
                         </a>
@@ -364,10 +364,10 @@ export default function TeamBuilder() {
             {/* Free Agent Players Matches */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-teal-400 uppercase tracking-wider font-rajdhani">
+                <h3 className="text-base font-bold text-yellow uppercase tracking-wider font-rajdhani">
                   Free Agents & Role Specialists
                 </h3>
-                <span className="text-[11px] text-valMuted font-mono">Compatibility score</span>
+                <span className="text-[11px] text-muted font-mono">Compatibility score</span>
               </div>
 
               <div className="space-y-3">
@@ -378,32 +378,32 @@ export default function TeamBuilder() {
                       key={p.puuid}
                       hover
                       padding="p-4 sm:p-5"
-                      className="border-valBorder group"
+                      className="group"
                     >
                       <div className="flex justify-between items-start gap-2">
                         <div>
-                          <span className="text-lg font-bold text-white uppercase font-rajdhani block group-hover:text-teal-400 transition-colors">
+                          <span className="text-lg font-black text-text uppercase font-rajdhani block group-hover:text-yellow transition-colors">
                             {p.gameName}{' '}
-                            <span className="text-xs text-valMuted font-mono">#{p.tagLine}</span>
+                            <span className="text-xs text-muted font-mono font-normal">#{p.tagLine}</span>
                           </span>
-                          <span className="text-xs text-slate-300 font-mono font-bold">
-                            {p.role}
+                          <span className="text-xs text-muted font-mono">
+                            Role: <strong className="text-text font-semibold">{p.role}</strong>
                           </span>
                         </div>
-                        <Badge variant="teal" size="sm">
+                        <Badge variant="yellow" size="sm">
                           {p.role}
                         </Badge>
                       </div>
 
-                      {/* Match Score Bar */}
+                      {/* Match Score Bar in Yellow */}
                       <div className="mt-3 space-y-1">
                         <div className="flex justify-between text-[11px] font-mono">
-                          <span className="text-valMuted">Role Fit Score</span>
-                          <span className="text-teal-300 font-bold">{p.matchScore} pts</span>
+                          <span className="text-muted">Role Fit Score</span>
+                          <span className="text-yellow font-bold">{p.matchScore} pts</span>
                         </div>
-                        <div className="w-full bg-[#121C26] h-2 rounded-full overflow-hidden border border-valBorder">
+                        <div className="w-full bg-[#202024] h-2 overflow-hidden border border-border">
                           <div
-                            className="bg-teal-400 h-full rounded-full transition-all duration-300"
+                            className="bg-yellow h-full transition-all duration-300"
                             style={{ width: `${scoreWidth}%` }}
                           />
                         </div>
@@ -412,14 +412,14 @@ export default function TeamBuilder() {
                       {/* Match Reasons */}
                       <div className="mt-3 text-xs space-y-1">
                         {p.matchReasons?.map((reason, i) => (
-                          <div key={i} className="flex items-center gap-1.5 text-slate-300">
-                            <CheckCircle className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+                          <div key={i} className="flex items-center gap-1.5 text-text/80">
+                            <CheckCircle className="w-3.5 h-3.5 text-yellow shrink-0" />
                             <span>{reason}</span>
                           </div>
                         ))}
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-valBorder flex flex-wrap gap-1">
+                      <div className="mt-3 pt-3 border-t border-border flex flex-wrap gap-1">
                         {p.agents?.map((a) => (
                           <Badge key={a} variant="default" size="sm">
                             {a}
@@ -451,13 +451,13 @@ export default function TeamBuilder() {
           />
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+            <label className="block text-xs font-bold uppercase tracking-wider text-muted font-mono">
               Competition Circuit
             </label>
             <select
               value={newTeamLevel}
               onChange={(e) => setNewTeamLevel(e.target.value)}
-              className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+              className="w-full bg-bg border border-border text-text text-xs p-2.5 focus:border-red focus:outline-none transition-colors"
             >
               <option value="college">Collegiate League</option>
               <option value="semi-pro">Semi-Pro Circuit</option>

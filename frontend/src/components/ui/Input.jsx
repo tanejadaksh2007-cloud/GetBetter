@@ -14,19 +14,19 @@ export default function Input({
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-xs font-bold uppercase tracking-wider text-valMuted"
+          className="block text-xs font-bold uppercase tracking-wider text-muted font-mono"
         >
           {label}
         </label>
       )}
       <input
         id={inputId}
-        className={`w-full bg-[#121C26] border border-valBorder rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-slate-100 placeholder-valMuted/60 transition-colors duration-180 focus:border-valAccent focus:outline-none focus:ring-1 focus:ring-valAccent/50 disabled:opacity-50 ${
-          error ? 'border-valAccent focus:border-valAccent' : ''
+        className={`w-full bg-surface border border-border px-3.5 py-2.5 text-xs sm:text-sm text-text placeholder-muted/60 transition-colors duration-150 focus:border-red focus:outline-none focus:ring-1 focus:ring-red/50 disabled:opacity-50 ${
+          error ? 'border-red focus:border-red' : ''
         } ${className}`}
         {...props}
       />
-      {error && <p className="text-[11px] text-valAccent font-medium">{error}</p>}
+      {error && <p className="text-[11px] text-red font-medium">{error}</p>}
     </div>
   );
 }

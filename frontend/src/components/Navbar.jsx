@@ -10,8 +10,7 @@ import {
   LogIn,
   LogOut,
   Menu,
-  X,
-  Target
+  X
 } from 'lucide-react';
 import Button from './ui/Button';
 
@@ -40,7 +39,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-valCard border-b border-valBorder sticky top-0 z-40 shadow-lg">
+    <nav className="bg-surface border-b border-border sticky top-0 z-40 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -49,11 +48,11 @@ export default function Navbar() {
             className="flex items-center gap-2.5 group select-none"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <div className="w-9 h-9 rounded-lg bg-valAccent flex items-center justify-center text-white font-black text-xl shadow-md shadow-valAccent/20 group-hover:bg-valAccentDark transition-all duration-180">
+            <div className="w-8 h-8 bg-red flex items-center justify-center text-white font-black text-lg clip-cut-corner-tl group-hover:bg-red-hover transition-colors">
               V
             </div>
             <div>
-              <span className="font-extrabold text-2xl tracking-wider uppercase text-white font-rajdhani group-hover:text-valAccent transition-colors">
+              <span className="font-black text-2xl tracking-wider uppercase text-text font-rajdhani group-hover:text-red transition-colors">
                 VETERAN
               </span>
             </div>
@@ -68,10 +67,10 @@ export default function Navbar() {
                   key={item.to}
                   to={item.to}
                   className={({ isActive }) =>
-                    `px-3.5 py-2 rounded-lg text-xs lg:text-sm font-semibold tracking-wide flex items-center gap-2 transition-all duration-180 ${
+                    `px-3.5 py-2 text-xs lg:text-sm font-rajdhani font-bold uppercase tracking-wider flex items-center gap-2 transition-all duration-150 ${
                       isActive
-                        ? 'bg-valAccent text-white shadow-md shadow-valAccent/25 font-bold'
-                        : 'text-valMuted hover:text-white hover:bg-valCardHover'
+                        ? 'bg-red text-white shadow-sm clip-cut-corner-br'
+                        : 'text-muted hover:text-text hover:bg-surface-hover'
                     }`
                   }
                 >
@@ -85,31 +84,31 @@ export default function Navbar() {
           {/* User Chip / Actions */}
           <div className="hidden sm:flex items-center gap-3">
             {user ? (
-              <div className="flex items-center gap-3 bg-[#121C26] border border-valBorder pl-3 pr-2 py-1.5 rounded-full">
-                <div className="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-xs text-white">
+              <div className="flex items-center gap-2.5 bg-bg border border-border pl-2.5 pr-2 py-1.5 clip-slant-right">
+                <div className="w-7 h-7 bg-surface border border-border flex items-center justify-center font-bold text-xs text-yellow font-rajdhani">
                   {getInitials(user.gameName)}
                 </div>
                 <div className="text-left pr-1">
-                  <div className="text-xs font-bold text-white leading-tight">
+                  <div className="text-xs font-bold text-text leading-tight font-rajdhani uppercase">
                     {user.gameName}{' '}
-                    <span className="text-valMuted text-[10px]">#{user.tagLine}</span>
+                    <span className="text-muted text-[10px] font-mono font-normal">#{user.tagLine}</span>
                   </div>
-                  <div className="text-[10px] text-valMuted font-mono leading-tight">
+                  <div className="text-[10px] text-muted font-mono leading-tight">
                     {user.role}
                   </div>
                 </div>
                 <button
                   onClick={handleLogout}
                   title="Sign out"
-                  className="p-1.5 rounded-full text-valMuted hover:text-valAccent hover:bg-slate-800 transition-colors"
+                  className="p-1 text-muted hover:text-red transition-colors cursor-pointer"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-3.5 h-3.5" />
                 </button>
               </div>
             ) : (
               <NavLink to="/login">
                 <Button variant="primary" size="sm">
-                  <LogIn className="w-4 h-4" /> Sign In
+                  <LogIn className="w-3.5 h-3.5" /> Sign In
                 </Button>
               </NavLink>
             )}
@@ -119,7 +118,7 @@ export default function Navbar() {
           <div className="flex sm:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-valMuted hover:text-white hover:bg-valCardHover transition-colors"
+              className="p-2 text-muted hover:text-text hover:bg-surface-hover transition-colors"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -129,7 +128,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-t border-valBorder bg-valCard px-4 pt-3 pb-5 space-y-3">
+        <div className="sm:hidden border-t border-border bg-surface px-4 pt-3 pb-5 space-y-3">
           <div className="space-y-1">
             {navLinks.map((item) => {
               const Icon = item.icon;
@@ -139,10 +138,10 @@ export default function Navbar() {
                   to={item.to}
                   onClick={() => setMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold tracking-wide transition-colors ${
+                    `flex items-center gap-3 px-3.5 py-2.5 text-sm font-rajdhani font-bold uppercase tracking-wider transition-colors ${
                       isActive
-                        ? 'bg-valAccent text-white'
-                        : 'text-valMuted hover:text-white hover:bg-valCardHover'
+                        ? 'bg-red text-white clip-cut-corner-br'
+                        : 'text-muted hover:text-text hover:bg-surface-hover'
                     }`
                   }
                 >
@@ -153,18 +152,18 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="pt-3 border-t border-valBorder">
+          <div className="pt-3 border-t border-border">
             {user ? (
-              <div className="flex items-center justify-between p-2 rounded-lg bg-[#121C26]">
+              <div className="flex items-center justify-between p-2.5 bg-bg border border-border">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center font-bold text-xs text-white">
+                  <div className="w-8 h-8 bg-surface border border-border flex items-center justify-center font-bold text-xs text-yellow font-rajdhani">
                     {getInitials(user.gameName)}
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-white">
+                    <div className="text-xs font-bold text-text font-rajdhani uppercase">
                       {user.gameName} #{user.tagLine}
                     </div>
-                    <div className="text-[10px] text-valMuted">{user.role}</div>
+                    <div className="text-[10px] text-muted font-mono">{user.role}</div>
                   </div>
                 </div>
                 <Button variant="outline" size="sm" onClick={handleLogout}>

@@ -5,15 +5,18 @@ export default function Card({
   className = '',
   hover = false,
   padding = 'p-5 sm:p-6',
+  cutCorner = true,
   ...props
 }) {
+  const cutClass = cutCorner ? 'clip-cut-corner-br' : 'rounded-none';
+
   return (
     <div
-      className={`bg-valCard rounded-[12px] border border-valBorder ${
+      className={`bg-surface border border-border ${
         hover
-          ? 'hover:border-valBorder/80 hover:bg-valCardHover/80 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-180'
-          : 'shadow-lg'
-      } ${padding} ${className}`}
+          ? 'hover:border-red hover:shadow-[0_0_0_1px_#FF4655] hover:-translate-y-0.5 transition-all duration-150'
+          : 'shadow-md'
+      } ${cutClass} ${padding} ${className}`}
       {...props}
     >
       {children}

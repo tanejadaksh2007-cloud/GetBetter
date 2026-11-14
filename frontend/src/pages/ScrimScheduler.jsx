@@ -104,11 +104,11 @@ export default function ScrimScheduler() {
   const getStatusBadge = (st) => {
     switch (st) {
       case 'completed':
-        return <Badge variant="teal" size="sm">Completed</Badge>;
+        return <Badge variant="yellow" size="sm">Completed</Badge>;
       case 'cancelled':
         return <Badge variant="loss" size="sm">Cancelled</Badge>;
       default:
-        return <Badge variant="amber" size="sm">Scheduled</Badge>;
+        return <Badge variant="outline" size="sm">Scheduled</Badge>;
     }
   };
 
@@ -117,7 +117,7 @@ export default function ScrimScheduler() {
       {/* Page Header */}
       <PageHeader
         badge={
-          <Badge variant="accent" size="sm">
+          <Badge variant="red" size="sm">
             <Calendar className="w-3 h-3 inline mr-1" /> Practice Coordination
           </Badge>
         }
@@ -126,8 +126,8 @@ export default function ScrimScheduler() {
       />
 
       {error ? (
-        <Card className="text-center py-12 text-rose-300">
-          <AlertCircle className="w-8 h-8 text-valAccent mx-auto mb-2" />
+        <Card className="text-center py-12 text-red">
+          <AlertCircle className="w-8 h-8 text-red mx-auto mb-2" />
           <p className="text-sm font-semibold">{error}</p>
         </Card>
       ) : loading ? (
@@ -136,19 +136,19 @@ export default function ScrimScheduler() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form */}
           <Card className="h-fit space-y-4">
-            <h2 className="text-xl font-bold uppercase tracking-wide text-white font-rajdhani flex items-center gap-2">
-              <Plus className="w-5 h-5 text-valAccent" /> Schedule Scrim
+            <h2 className="text-xl font-bold uppercase tracking-wide text-text font-rajdhani flex items-center gap-2">
+              <Plus className="w-5 h-5 text-red" /> Schedule Scrim
             </h2>
 
             <form onSubmit={handleCreateScrim} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+                <label className="block text-xs font-bold uppercase tracking-wider text-muted font-mono">
                   Your Team
                 </label>
                 <select
                   value={teamId}
                   onChange={(e) => setTeamId(e.target.value)}
-                  className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+                  className="w-full bg-bg border border-border text-text text-xs p-2.5 focus:border-red focus:outline-none transition-colors"
                 >
                   {teams.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -167,13 +167,13 @@ export default function ScrimScheduler() {
               />
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+                <label className="block text-xs font-bold uppercase tracking-wider text-muted font-mono">
                   Map Selection
                 </label>
                 <select
                   value={map}
                   onChange={(e) => setMap(e.target.value)}
-                  className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+                  className="w-full bg-bg border border-border text-text text-xs p-2.5 focus:border-red focus:outline-none transition-colors"
                 >
                   {mapsList.map((m) => (
                     <option key={m} value={m}>
@@ -184,26 +184,26 @@ export default function ScrimScheduler() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+                <label className="block text-xs font-bold uppercase tracking-wider text-muted font-mono">
                   Date & Time
                 </label>
                 <input
                   type="datetime-local"
                   value={datetime}
                   onChange={(e) => setDatetime(e.target.value)}
-                  className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+                  className="w-full bg-bg border border-border text-text text-xs p-2.5 focus:border-red focus:outline-none transition-colors"
                   required
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-valMuted">
+                <label className="block text-xs font-bold uppercase tracking-wider text-muted font-mono">
                   Status
                 </label>
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
-                  className="w-full bg-[#121C26] border border-valBorder text-slate-200 text-xs rounded-lg p-2.5 focus:border-valAccent focus:outline-none transition-colors"
+                  className="w-full bg-bg border border-border text-text text-xs p-2.5 focus:border-red focus:outline-none transition-colors"
                 >
                   <option value="scheduled">Scheduled</option>
                   <option value="completed">Completed</option>
@@ -220,7 +220,7 @@ export default function ScrimScheduler() {
           {/* List */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-bold uppercase tracking-wide text-white font-rajdhani">
+              <h3 className="text-xl font-bold uppercase tracking-wide text-text font-rajdhani">
                 Scheduled & Recent Scrims
               </h3>
               <Badge variant="outline" size="sm">
@@ -253,16 +253,16 @@ export default function ScrimScheduler() {
                       className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
                     >
                       <div>
-                        <div className="text-base font-bold text-white uppercase font-rajdhani">
-                          {teamName} <span className="text-valAccent font-normal">vs</span> {scrim.opponent}
+                        <div className="text-base font-bold text-text uppercase font-rajdhani">
+                          {teamName} <span className="text-red font-normal">vs</span> {scrim.opponent}
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-4 mt-1.5 text-xs text-valMuted font-mono">
-                          <span className="flex items-center gap-1.5 text-slate-300">
-                            <MapPin className="w-3.5 h-3.5 text-teal-400" /> {scrim.map}
+                        <div className="flex flex-wrap items-center gap-4 mt-1.5 text-xs text-muted font-mono">
+                          <span className="flex items-center gap-1.5 text-text">
+                            <MapPin className="w-3.5 h-3.5 text-red" /> {scrim.map}
                           </span>
-                          <span className="flex items-center gap-1.5 text-slate-300">
-                            <Clock className="w-3.5 h-3.5 text-amber-400" /> {formattedDate}
+                          <span className="flex items-center gap-1.5 text-text">
+                            <Clock className="w-3.5 h-3.5 text-yellow" /> {formattedDate}
                           </span>
                         </div>
                       </div>

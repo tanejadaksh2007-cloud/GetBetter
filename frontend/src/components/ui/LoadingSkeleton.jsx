@@ -11,18 +11,18 @@ export default function LoadingSkeleton({
         {Array.from({ length: count }).map((_, i) => (
           <div
             key={i}
-            className="bg-valCard border border-valBorder rounded-[12px] p-6 animate-pulse space-y-4"
+            className="bg-surface border border-border clip-cut-corner-br p-6 animate-pulse space-y-4"
           >
             <div className="flex items-center justify-between">
-              <div className="h-6 w-32 bg-slate-800 rounded" />
-              <div className="h-6 w-12 bg-slate-800 rounded" />
+              <div className="h-6 w-32 bg-surface-hover" />
+              <div className="h-6 w-12 bg-surface-hover" />
             </div>
-            <div className="h-4 w-24 bg-slate-800/80 rounded" />
+            <div className="h-4 w-24 bg-surface-hover/80" />
             <div className="space-y-2 pt-2">
-              <div className="h-3 w-full bg-slate-800/60 rounded" />
-              <div className="h-3 w-4/5 bg-slate-800/60 rounded" />
+              <div className="h-3 w-full bg-surface-hover/60" />
+              <div className="h-3 w-4/5 bg-surface-hover/60" />
             </div>
-            <div className="h-8 w-full bg-slate-800 rounded-lg pt-4" />
+            <div className="h-9 w-full bg-surface-hover pt-4 clip-cut-corner-br" />
           </div>
         ))}
       </div>
@@ -35,7 +35,7 @@ export default function LoadingSkeleton({
         {Array.from({ length: count }).map((_, i) => (
           <div
             key={i}
-            className="h-14 bg-valCard border border-valBorder rounded-lg animate-pulse"
+            className="h-14 bg-surface border border-border animate-pulse clip-cut-corner-br"
           />
         ))}
       </div>
@@ -43,6 +43,6 @@ export default function LoadingSkeleton({
   }
 
   return (
-    <div className={`h-32 bg-valCard border border-valBorder rounded-[12px] animate-pulse ${className}`} />
+    <div className={`h-32 bg-surface border border-border clip-cut-corner-br animate-pulse ${className}`} />
   );
 }

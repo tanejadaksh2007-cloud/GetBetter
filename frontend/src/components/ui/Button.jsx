@@ -14,15 +14,17 @@ export default function Button({
   const base =
     'relative inline-flex items-center justify-center font-rajdhani font-bold uppercase tracking-wider transition-all duration-150 focus:outline-none select-none cursor-pointer active:translate-y-0.5 disabled:opacity-50 disabled:pointer-events-none';
 
+  // Primary: solid red, hover brightens, text white
+  // Secondary: yellow outline, text on hover or black on yellow
   const variants = {
     primary:
-      'bg-valAccent hover:bg-valAccentDark text-white border-b-2 border-red-800 shadow-md shadow-valAccent/20 hover:shadow-valAccent/40',
+      'bg-red hover:bg-red-hover text-white border-b-2 border-red-900 shadow-md shadow-red/25 hover:shadow-red/40',
     secondary:
-      'bg-[#14202C] hover:bg-[#1E2E3E] text-valText border border-valBorder hover:border-valAccent/60',
+      'bg-transparent hover:bg-yellow text-yellow hover:text-black border border-yellow transition-colors font-bold shadow-sm',
     outline:
-      'bg-transparent hover:bg-valAccent/10 text-valText border border-valBorder hover:border-valAccent hover:text-white',
+      'bg-transparent hover:bg-surface text-text border border-border hover:border-red hover:text-white',
     ghost:
-      'bg-transparent hover:bg-valCard hover:text-white text-valMuted',
+      'bg-transparent hover:bg-surface hover:text-white text-muted',
   };
 
   const sizes = {

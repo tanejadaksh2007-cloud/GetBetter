@@ -14,8 +14,6 @@ import {
 } from 'recharts';
 import {
   LayoutDashboard,
-  Award,
-  Crosshair,
   Shield,
   TrendingUp,
   AlertCircle,
@@ -23,7 +21,6 @@ import {
   Calendar
 } from 'lucide-react';
 import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
 import Badge from '../components/ui/Badge';
 import PageHeader from '../components/ui/PageHeader';
 import LoadingSkeleton from '../components/ui/LoadingSkeleton';
@@ -128,11 +125,12 @@ export default function Dashboard() {
     });
   });
 
+  // Recharts attack/defense data in Valorant theme colors (Red & Yellow)
   const attackVsDefenseData = [
     { name: 'Attack Rounds Won', value: attackWins, color: '#FF4655' },
-    { name: 'Attack Rounds Lost', value: Math.max(0, attackTotal - attackWins), color: '#3A141A' },
-    { name: 'Defense Rounds Won', value: defenseWins, color: '#00E5BF' },
-    { name: 'Defense Rounds Lost', value: Math.max(0, defenseTotal - defenseWins), color: '#0B332C' }
+    { name: 'Attack Rounds Lost', value: Math.max(0, attackTotal - attackWins), color: '#2A2A2E' },
+    { name: 'Defense Rounds Won', value: defenseWins, color: '#FFD23F' },
+    { name: 'Defense Rounds Lost', value: Math.max(0, defenseTotal - defenseWins), color: '#3F3F46' }
   ];
 
   const last5Matches = matches.slice(-5).map((m) => {
@@ -156,7 +154,7 @@ export default function Dashboard() {
       {/* Header with Team Switcher */}
       <PageHeader
         badge={
-          <Badge variant="accent" size="sm">
+          <Badge variant="red" size="sm">
             <LayoutDashboard className="w-3 h-3 inline mr-1" /> Team Intelligence
           </Badge>
         }
@@ -164,13 +162,13 @@ export default function Dashboard() {
         description="Review aggregate performance, map veto proficiencies, and round side distributions computed from seeded match logs."
         actions={
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-valMuted uppercase font-mono hidden sm:inline">
+            <span className="text-xs font-bold text-muted uppercase font-mono hidden sm:inline">
               Team:
             </span>
             <select
               value={selectedTeamId}
               onChange={(e) => setSelectedTeamId(e.target.value)}
-              className="bg-[#121C26] border border-valBorder text-slate-100 text-xs sm:text-sm rounded-lg px-3 py-2 focus:border-valAccent focus:outline-none transition-colors"
+              className="bg-bg border border-border text-text text-xs sm:text-sm px-3 py-2 focus:border-red focus:outline-none transition-colors"
             >
               {teams.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -183,8 +181,8 @@ export default function Dashboard() {
       />
 
       {error ? (
-        <Card className="text-center py-12 text-rose-300">
-          <AlertCircle className="w-8 h-8 text-valAccent mx-auto mb-2" />
+        <Card className="text-center py-12 text-red">
+          <AlertCircle className="w-8 h-8 text-red mx-auto mb-2" />
           <p className="text-sm font-semibold">{error}</p>
         </Card>
       ) : loading ? (
@@ -194,56 +192,56 @@ export default function Dashboard() {
         </div>
       ) : (
         <>
-          {/* Top 3 Stat Cards */}
+          {/* Top 3 Stat Cards: Yellow numbers, muted labels */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <Card hover className="p-5 flex items-center justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-valMuted font-mono block mb-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted font-mono block mb-1">
                   Overall Win Rate
                 </span>
-                <div className="text-4xl font-extrabold text-white font-rajdhani">
+                <div className="text-4xl font-black text-yellow font-rajdhani">
                   {overallWinRate}%
                 </div>
-                <span className="text-[11px] text-valMuted block mt-1">
-                  Record: <strong className="text-white font-mono">{totalWins}W - {totalLosses}L</strong>
+                <span className="text-[11px] text-muted block mt-1 font-mono">
+                  Record: <strong className="text-text">{totalWins}W - {totalLosses}L</strong>
                 </span>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-valAccent/10 border border-valAccent/30 flex items-center justify-center text-valAccent">
+              <div className="w-12 h-12 bg-bg border border-border flex items-center justify-center text-red clip-cut-corner-tl">
                 <TrendingUp className="w-6 h-6" />
               </div>
             </Card>
 
             <Card hover className="p-5 flex items-center justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-valMuted font-mono block mb-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted font-mono block mb-1">
                   Side Balance
                 </span>
-                <div className="text-4xl font-extrabold text-teal-400 font-rajdhani">
+                <div className="text-4xl font-black text-yellow font-rajdhani">
                   {attackTotal > 0 ? Math.round((attackWins / attackTotal) * 100) : 0}% /{' '}
                   {defenseTotal > 0 ? Math.round((defenseWins / defenseTotal) * 100) : 0}%
                 </div>
-                <span className="text-[11px] text-valMuted block mt-1 font-mono">
+                <span className="text-[11px] text-muted block mt-1 font-mono">
                   Attack / Defense Win Rate
                 </span>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-teal-950/40 border border-teal-800/40 flex items-center justify-center text-teal-400">
+              <div className="w-12 h-12 bg-bg border border-border flex items-center justify-center text-yellow clip-cut-corner-tl">
                 <Shield className="w-6 h-6" />
               </div>
             </Card>
 
             <Card hover className="p-5 flex items-center justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-valMuted font-mono block mb-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted font-mono block mb-1">
                   Best Map Veto
                 </span>
-                <div className="text-4xl font-extrabold text-white font-rajdhani">
+                <div className="text-4xl font-black text-yellow font-rajdhani">
                   {bestMapObj ? bestMapObj.map : 'None'}
                 </div>
-                <span className="text-[11px] text-valMuted block mt-1 font-mono">
+                <span className="text-[11px] text-muted block mt-1 font-mono">
                   {bestMapObj ? `${bestMapObj.winRate}% win rate` : 'No data logged'}
                 </span>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-amber-950/40 border border-amber-800/40 flex items-center justify-center text-amber-400">
+              <div className="w-12 h-12 bg-bg border border-border flex items-center justify-center text-red clip-cut-corner-tl">
                 <MapPin className="w-6 h-6" />
               </div>
             </Card>
@@ -254,36 +252,37 @@ export default function Dashboard() {
             {/* Chart 1: Win Rate by Map */}
             <Card className="p-6 space-y-4">
               <div>
-                <h3 className="text-xl font-bold uppercase tracking-wide text-white font-rajdhani">
+                <h3 className="text-xl font-bold uppercase tracking-wide text-text font-rajdhani">
                   Win Rate by Map
                 </h3>
-                <p className="text-xs text-valMuted">
+                <p className="text-xs text-muted font-mono">
                   Map performance percentage used for ban/pick strategy.
                 </p>
               </div>
 
               <div className="h-64 w-full">
                 {winRateByMapData.length === 0 ? (
-                  <div className="h-full flex items-center justify-center text-xs text-valMuted">
+                  <div className="h-full flex items-center justify-center text-xs text-muted font-mono">
                     No map match data recorded.
                   </div>
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={winRateByMapData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#27384A" vertical={false} />
-                      <XAxis dataKey="map" stroke="#8B97A3" fontSize={11} tickLine={false} />
-                      <YAxis unit="%" stroke="#8B97A3" fontSize={11} domain={[0, 100]} tickLine={false} />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#2A2A2E" vertical={false} />
+                      <XAxis dataKey="map" stroke="#9A9AA2" fontSize={11} tickLine={false} />
+                      <YAxis unit="%" stroke="#9A9AA2" fontSize={11} domain={[0, 100]} tickLine={false} />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: '#1B2733',
-                          borderColor: '#27384A',
-                          borderRadius: '8px',
-                          color: '#fff',
-                          fontSize: '12px'
+                          backgroundColor: '#141416',
+                          borderColor: '#2A2A2E',
+                          borderRadius: '0px',
+                          color: '#F2EFE9',
+                          fontSize: '12px',
+                          fontFamily: 'Inter, monospace'
                         }}
                         formatter={(val) => [`${val}%`, 'Win Rate']}
                       />
-                      <Bar dataKey="winRate" fill="#FF4655" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="winRate" fill="#FF4655" />
                     </BarChart>
                   </ResponsiveContainer>
                 )}
@@ -293,17 +292,17 @@ export default function Dashboard() {
             {/* Chart 2: Attack vs Defense Rounds */}
             <Card className="p-6 space-y-4">
               <div>
-                <h3 className="text-xl font-bold uppercase tracking-wide text-white font-rajdhani">
+                <h3 className="text-xl font-bold uppercase tracking-wide text-text font-rajdhani">
                   Round Side Distribution
                 </h3>
-                <p className="text-xs text-valMuted">
+                <p className="text-xs text-muted font-mono">
                   Execute vs retake round conversion rates.
                 </p>
               </div>
 
               <div className="h-64 w-full flex items-center justify-center">
                 {attackTotal === 0 && defenseTotal === 0 ? (
-                  <div className="text-xs text-valMuted">No round data available.</div>
+                  <div className="text-xs text-muted font-mono">No round data available.</div>
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -322,16 +321,17 @@ export default function Dashboard() {
                       </Pie>
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: '#1B2733',
-                          borderColor: '#27384A',
-                          borderRadius: '8px',
+                          backgroundColor: '#141416',
+                          borderColor: '#2A2A2E',
+                          borderRadius: '0px',
+                          color: '#F2EFE9',
                           fontSize: '12px'
                         }}
                       />
                       <Legend
                         verticalAlign="bottom"
                         iconSize={8}
-                        wrapperStyle={{ fontSize: '11px', color: '#8B97A3' }}
+                        wrapperStyle={{ fontSize: '11px', color: '#9A9AA2' }}
                       />
                     </PieChart>
                   </ResponsiveContainer>
@@ -344,15 +344,15 @@ export default function Dashboard() {
           <Card className="p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-xl font-bold uppercase tracking-wide text-white font-rajdhani">
+                <h3 className="text-xl font-bold uppercase tracking-wide text-text font-rajdhani">
                   Last 5 Scrims / Matches
                 </h3>
-                <p className="text-xs text-valMuted">
+                <p className="text-xs text-muted font-mono">
                   Recent recorded custom scrim results.
                 </p>
               </div>
-              <Badge variant="teal" size="sm">
-                Seeded Logs
+              <Badge variant="yellow" size="sm">
+                PLACEHOLDER DATA
               </Badge>
             </div>
 
@@ -367,7 +367,7 @@ export default function Dashboard() {
                 {last5Matches.map((m) => (
                   <div
                     key={m.matchId}
-                    className="flex items-center justify-between p-3.5 bg-[#121C26] border border-valBorder hover:border-slate-600 rounded-lg text-xs transition-colors"
+                    className="flex items-center justify-between p-3.5 bg-bg border border-border hover:border-red transition-all duration-150 text-xs clip-slant-right"
                   >
                     <div className="flex items-center gap-3">
                       {m.won ? (
@@ -379,19 +379,19 @@ export default function Dashboard() {
                           DEFEAT
                         </Badge>
                       )}
-                      <span className="text-white font-bold text-sm uppercase font-rajdhani">
+                      <span className="text-text font-bold text-sm uppercase font-rajdhani">
                         {m.map}
                       </span>
-                      <span className="text-valMuted font-mono text-[11px] hidden sm:inline">
+                      <span className="text-muted font-mono text-[11px] hidden sm:inline">
                         {m.matchId}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-4">
-                      <span className="font-mono font-bold text-sm text-slate-100">
+                      <span className="font-mono font-bold text-sm text-yellow">
                         {m.score}
                       </span>
-                      <span className="text-valMuted font-mono text-[11px]">{m.date}</span>
+                      <span className="text-muted font-mono text-[11px]">{m.date}</span>
                     </div>
                   </div>
                 ))}
