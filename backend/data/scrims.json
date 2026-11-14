@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": "scrim-1794663103256",
+    "teamId": "team-001",
+    "opponent": "NYU Violets (Collegiate)",
+    "datetime": "2026-11-18T19:00",
+    "map": "Ascent",
+    "status": "scheduled"
+  },
+  {
+    "id": "scrim-1794663103264",
+    "teamId": "team-001",
+    "opponent": "NYU Violets (Collegiate)",
+    "datetime": "2026-11-18T19:00",
+    "map": "Ascent",
+    "status": "scheduled"
+  },
+  {
+    "id": "scrim-1794663103276",
+    "teamId": "team-001",
+    "opponent": "Penn State Nittany Gaming",
+    "datetime": "2026-11-15T21:00",
+    "map": "Haven",
+    "status": "completed"
+  },
+  {
+    "id": "scrim-1794663103290",
+    "teamId": "team-001",
+    "opponent": "Penn State Nittany Gaming",
+    "datetime": "2026-11-15T21:00",
+    "map": "Haven",
+    "status": "completed"
+  }
+]
